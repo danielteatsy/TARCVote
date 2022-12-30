@@ -1,26 +1,24 @@
-package my.edu.tarc.tarcvote
+package my.edu.tarc.tarcvote.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import my.edu.tarc.tarcvote.R
 
-class AdminActivity : AppCompatActivity() {
+class UserActivity : AppCompatActivity() {
 
     private lateinit var cardLogout: CardView
-    private lateinit var createCandidate: CardView
-    private lateinit var candidateResult: CardView
-    private lateinit var candidateList: CardView
+    private lateinit var Voter: CardView
+    private lateinit var UserResult: CardView
     private lateinit var userNameTextView: TextView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin)
+        setContentView(R.layout.activity_user)
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         val db = FirebaseFirestore.getInstance()
@@ -38,37 +36,29 @@ class AdminActivity : AppCompatActivity() {
                 }
         }
 
-        cardLogout = findViewById(R.id.AdminLogOut)
-        createCandidate = findViewById(R.id.CreateCandidate)
-        candidateList = findViewById(R.id.CandidateList)
-        candidateResult = findViewById(R.id.UserResult)
-        userNameTextView = findViewById(R.id.UserTextName)
 
+
+        cardLogout = findViewById(R.id.LogOut)
+        Voter = findViewById(R.id.UserVote)
+        userNameTextView = findViewById(R.id.UserTextName)
+        UserResult = findViewById(R.id.UserResult)
+        /*candidateList = findViewById(R.id.CandidateList)*/
 
         cardLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this@AdminActivity, LoginActivity::class.java)
+            val intent = Intent(this@UserActivity, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        createCandidate.setOnClickListener {
-            val intent = Intent(this@AdminActivity, CreateCandidateActivity::class.java)
+        Voter.setOnClickListener {
+            val intent = Intent(this@UserActivity, VoteActivity::class.java)
             startActivity(intent)
         }
 
-        candidateList.setOnClickListener{
-            val intent = Intent(this@AdminActivity, CandidateListActivity::class.java)
+        UserResult.setOnClickListener{
+            val intent = Intent(this@UserActivity, ResultActivity::class.java)
             startActivity(intent)
         }
-
-        candidateResult.setOnClickListener{
-            val intent = Intent(this@AdminActivity, ResultActivity::class.java)
-            startActivity(intent)
-        }
-
-
-
-
     }
 }

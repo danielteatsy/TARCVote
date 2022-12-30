@@ -1,4 +1,4 @@
-package my.edu.tarc.tarcvote
+package my.edu.tarc.tarcvote.ui
 
 
 import android.content.Intent
@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.rpc.context.AttributeContext.Auth
+import my.edu.tarc.tarcvote.R
+import my.edu.tarc.tarcvote.ui.admin.AdminActivity
 
 class LoginActivity : AppCompatActivity() {
 

@@ -1,21 +1,20 @@
-package my.edu.tarc.tarcvote
+package my.edu.tarc.tarcvote.ui.admin
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
-import java.io.File
+import my.edu.tarc.tarcvote.R
+import my.edu.tarc.tarcvote.data.Candidate
 import java.util.*
 
 class CreateCandidateActivity : AppCompatActivity() {
@@ -48,9 +47,9 @@ class CreateCandidateActivity : AppCompatActivity() {
                 val imageUrl = imageView.drawable.toString()
                     saveImageUrlInFirestore(imageUrl)
 
-               
+
             }
-        
+
 
         // Add image profile candidate
         button = findViewById(R.id.btnUploadPhoto)
@@ -70,7 +69,7 @@ class CreateCandidateActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == IMAGE_REQUEST_CODE) {
             val imageUri = data?.data
             Glide.with(this@CreateCandidateActivity)
                 .load(imageUri)
@@ -106,9 +105,13 @@ class CreateCandidateActivity : AppCompatActivity() {
 
 
         if (candidateName.isEmpty() || candidateDescription.isEmpty()) {
-            Toast.makeText(this, "Candidate name and description cannot be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Candidate name and description cannot be empty",
+                Toast.LENGTH_SHORT
+            ).show()
         } else {
-            val candidate = Candidate(id,candidateName, candidateDescription, imageUrl, votes)
+            val candidate = Candidate(id, candidateName, candidateDescription, imageUrl, votes)
             val candidateRef = db.collection("candidates").document()
 
             // Set the candidate ID and save the candidate to Cloud Firestore
@@ -119,7 +122,8 @@ class CreateCandidateActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener {
                     // An error occurred while updating the candidate in Cloud Firestore
-                    Toast.makeText(this, "Error create candidate: ${it.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Error create candidate: ${it.message}", Toast.LENGTH_LONG)
+                        .show()
                 }
         }
     }
@@ -127,5 +131,3 @@ class CreateCandidateActivity : AppCompatActivity() {
 
 
 }
-
-

@@ -1,10 +1,11 @@
-package my.edu.tarc.tarcvote
+package my.edu.tarc.tarcvote.ui
 
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import my.edu.tarc.tarcvote.R
 
 class MainActivity : AppCompatActivity() {
 
