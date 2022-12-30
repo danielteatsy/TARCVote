@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AdminActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/side_nav_bar"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome,"
+            android:textColor="#fafafa"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/UserTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="textview"
+            android:textColor="#fafafa"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+
+    <!--Creating the menu grid button-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:weightSum="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CreateCandidate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:background="#fff"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="113dp"
+                        android:layout_height="123dp"
+                        android:src="@drawable/ic_baseline_how_to_vote_24" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Create Candidate"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/UserResult"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:background="#fff"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="113dp"
+                        android:layout_height="123dp"
+                        android:src="@drawable/ic_baseline_bar_chart_24" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Result"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:weightSum="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CandidateList"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:background="#fff"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="113dp"
+                        android:layout_height="123dp"
+                        android:src="@drawable/ic_account" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Candidate List"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/AdminLogOut"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:background="#fff"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="113dp"
+                        android:layout_height="123dp"
+                        android:src="@drawable/ic_baseline_logout_24" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Log out"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
