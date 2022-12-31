@@ -68,7 +68,7 @@
                 app:startIconDrawable="@drawable/ic_baseline_email">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email"
+                    android:id="@+id/regEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="0dp"
@@ -87,7 +87,7 @@
                 app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name"
+                    android:id="@+id/regName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name" />
@@ -104,7 +104,7 @@
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password"
+                    android:id="@+id/regPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password" />
@@ -121,14 +121,14 @@
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/conPassword"
+                    android:id="@+id/regCPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Confirm Password" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/signUp"
+                android:id="@+id/btnSigUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
@@ -136,11 +136,11 @@
                 android:text="Sign Up" />
 
             <TextView
-                android:id="@+id/signIn"
+                android:id="@+id/textSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
-                android:text="Have Sign Up ? Sign In"
+                android:text="Have an Account ? Sign In"
                 android:textAlignment="center"
                 android:textStyle="bold" />
         </LinearLayout>
