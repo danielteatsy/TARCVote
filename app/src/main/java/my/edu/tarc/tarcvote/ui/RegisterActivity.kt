@@ -43,8 +43,6 @@ class RegisterActivity : AppCompatActivity(){
         val regCPassword: TextInputEditText = findViewById(R.id.et_reg_confirmPassword)
         val regPasswordLayout: TextInputLayout = findViewById(R.id.etPasswordLayout)
         val regCPasswordLayout: TextInputLayout = findViewById(R.id.etCPasswordLayout)
-        val regIsAdmin: RadioButton = findViewById(R.id.isAdmin)
-        val regIsUser: RadioButton = findViewById(R.id.isVoter)
         val regBtn: Button = findViewById(R.id.btn_register)
 
        // val loginInText : TextView = findViewById(R.id.signInText)
@@ -53,24 +51,9 @@ class RegisterActivity : AppCompatActivity(){
             startActivity(intent)
         }*/
 
-        val radioGroup = findViewById<RadioGroup>(R.id.radio_group)
         var isValid = false
 
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.isAdmin -> {
-                    // User selected to be an admin
-                    isValid = true
-                }
-                R.id.isVoter -> {
-                    // User selected to be a user
-                    isValid = true
-                }
-                else -> {
-                    isValid = false
-                }
-            }
-        }
+
 
         regBtn.setOnClickListener {
             val studentID = regStudentid.text.toString()
@@ -122,13 +105,7 @@ class RegisterActivity : AppCompatActivity(){
                         "studentID" to studentID,
                         "uid" to auth.currentUser!!.uid
                     )
-                    if (radioGroup.checkedRadioButtonId == R.id.isAdmin) {
-                        // User is an admin
-                        users["isAdmin"] = "0"
-                    } else {
-                        // User is a user
-                        users["isUser"] = "1"
-                    }
+
                     db.collection("users").document(auth.currentUser!!.uid).set(users)
                         .addOnSuccessListener {
                             Toast.makeText(this@RegisterActivity, "Account Created", Toast.LENGTH_SHORT).show()

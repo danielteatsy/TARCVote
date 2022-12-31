@@ -104,14 +104,14 @@ class CreateCandidateActivity : AppCompatActivity() {
         val votes = 0
 
 
-        if (candidateName.isEmpty() || candidateDescription.isEmpty()) {
+        /*if (candidateName.isEmpty() || candidateDescription.isEmpty()) {
             Toast.makeText(
                 this,
                 "Candidate name and description cannot be empty",
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            val candidate = Candidate(id, candidateName, candidateDescription, imageUrl, votes)
+            *//*val candidate = Candidate(id, candidateName, candidateDescription, imageUrl, votes)*//*
             val candidateRef = db.collection("candidates").document()
 
             // Set the candidate ID and save the candidate to Cloud Firestore
@@ -125,7 +125,7 @@ class CreateCandidateActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error create candidate: ${it.message}", Toast.LENGTH_LONG)
                         .show()
                 }
-        }
+        }*/
     }
 
 
