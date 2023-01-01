@@ -5,16 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import my.edu.tarc.tarcvote.R
-import my.edu.tarc.tarcvote.databinding.ActivityAdminBinding
 import my.edu.tarc.tarcvote.ui.LoginActivity
 import my.edu.tarc.tarcvote.ui.ProfileActivity
 import my.edu.tarc.tarcvote.ui.ResultActivity
-import my.edu.tarc.tarcvote.ui.SettingsActivity
 
 class AdminActivity : AppCompatActivity() {
 
@@ -25,6 +24,7 @@ class AdminActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin)
 
+        //Navigation Drawer
         val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.navHead)
 
@@ -45,7 +45,6 @@ class AdminActivity : AppCompatActivity() {
                     R.id.nav_poll -> intent.setClass(this@AdminActivity, AdminActivity::class.java)
                     R.id.nav_results -> intent.setClass(this@AdminActivity, ResultActivity::class.java)
                     R.id.nav_profile -> intent.setClass(this@AdminActivity, ProfileActivity::class.java)
-                    R.id.action_settings -> intent.setClass(this@AdminActivity, SettingsActivity::class.java)
                     R.id.action_logout -> {
                         val preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
                         preferences.edit().clear().apply()
@@ -60,6 +59,19 @@ class AdminActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+
+        // Button to create poll
+        val button : Button = findViewById(R.id.fab)
+
+        button.setOnClickListener{
+            val intent = Intent (this@AdminActivity, CreateCampaignActivity::class.java)
+            startActivity(intent)
+        }
+
+        //
+
+
+
 
         }
 

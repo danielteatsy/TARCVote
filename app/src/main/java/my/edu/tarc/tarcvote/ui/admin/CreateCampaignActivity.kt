@@ -10,7 +10,7 @@ class CreateCampaignActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_candidate)
+        setContentView(R.layout.activity_create_campaign)
         supportActionBar?.hide()
 
 

@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.ProfileActivity">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ui.admin.EditCampaignActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,8 +15,9 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:titleMarginStart="65dp"
         app:logo="@drawable/ic_baseline_arrow_back_24"
-        app:title="Edit Profile"
-        app:titleMarginStart="65dp" />
+        app:title="Edit Poll"/>
+
 
 </LinearLayout>
