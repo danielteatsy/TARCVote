@@ -29,10 +29,41 @@
                 app:title="Vote Poll"
                 app:titleMarginStart="65dp" />
 
+            <TextView
+                android:id="@+id/textPollTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textPollTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="16dp"
                 android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/round_bg"
+                android:text="Submit" />
         </LinearLayout>
     </ScrollView>
 
