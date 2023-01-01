@@ -99,7 +99,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                android:text="Sign In" />
+                android:text="Sign In"
+                android:background="@drawable/round_bg"/>
 
             <TextView
                 android:id="@+id/textSignUp"
