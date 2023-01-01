@@ -14,7 +14,7 @@ class ResultAdapter(
     candidates: List<Candidate>
 ) : ArrayAdapter<Candidate>(context, 0, candidates) {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+   /* override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val candidate = getItem(position)
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.items_result, parent, false)
         val nameTextView = view.findViewById<TextView>(R.id.ResultName)
@@ -26,5 +26,5 @@ class ResultAdapter(
             voteTextView.text = candidate.votes.toString()
         }
         return view
-    }
+    }*/
 }
