@@ -15,28 +15,7 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
         supportActionBar?.hide()
 
-        val listView = findViewById<ListView>(R.id.ResultListView)
-        val db = FirebaseFirestore.getInstance()
-        val candidates = mutableListOf<Candidate>()
 
-        val resultAdapter = ResultAdapter(this, candidates)
-        listView.adapter = resultAdapter
-
-        // Fetch the candidates from Cloud Firestore
-        db.collection("candidates")
-            .addSnapshotListener { querySnapshot, exception ->
-                if (exception != null) {
-                    // An error occurred
-                    return@addSnapshotListener
-                }
-
-                candidates.clear()
-                for (document in querySnapshot!!) {
-                    val candidate = document.toObject(Candidate::class.java)
-                    candidates.add(candidate)
-                }
-                resultAdapter.notifyDataSetChanged()
-            }
 
     }
 }

@@ -11,7 +11,7 @@ import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Candidate
 
-class CandidateListActivity : AppCompatActivity() {
+class EditCampaignActivity : AppCompatActivity() {
 
 
 

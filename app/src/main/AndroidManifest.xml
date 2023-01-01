@@ -37,7 +37,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.admin.CandidateListActivity"
+            android:name=".ui.admin.EditCampaignActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
@@ -58,7 +58,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.admin.CreateCandidateActivity"
+            android:name=".ui.admin.CreateCampaignActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
