@@ -13,8 +13,8 @@ import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Candidate
 
 
-class CandidateAdapater(private val candidates: List<Candidate>,
-                        private val onDelete: (Candidate) -> Unit): RecyclerView.Adapter<CandidateAdapater.ViewHolder>(){
+class CampaignAdapater(private val candidates: List<Candidate>,
+                       private val onDelete: (Candidate) -> Unit): RecyclerView.Adapter<CampaignAdapater.ViewHolder>(){
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val candidateNameTextView: TextView = itemView.findViewById(R.id.candidateName)
