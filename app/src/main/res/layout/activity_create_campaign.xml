@@ -125,6 +125,8 @@
                 android:background="@drawable/round_bg"
                 android:text="Save Poll"
                 android:textColor="#FFFFFF" />
+
+
         </LinearLayout>
     </ScrollView>
 

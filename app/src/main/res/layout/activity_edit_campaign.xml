@@ -125,6 +125,20 @@
                 android:background="@drawable/round_bg"
                 android:text="Save Poll"
                 android:textColor="#FFFFFF" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_bg"
+                android:theme="@style/Widget.AppCompat.Button.Colored"
+                android:text="Delete Poll"
+                android:textColor="#FFFFFF" />
+
         </LinearLayout>
     </ScrollView>
 
