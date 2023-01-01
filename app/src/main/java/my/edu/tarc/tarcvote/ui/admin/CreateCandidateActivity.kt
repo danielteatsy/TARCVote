@@ -32,6 +32,7 @@ class CreateCandidateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_candidate)
+        supportActionBar?.hide()
 
 
 
@@ -104,28 +105,7 @@ class CreateCandidateActivity : AppCompatActivity() {
         val votes = 0
 
 
-        /*if (candidateName.isEmpty() || candidateDescription.isEmpty()) {
-            Toast.makeText(
-                this,
-                "Candidate name and description cannot be empty",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            *//*val candidate = Candidate(id, candidateName, candidateDescription, imageUrl, votes)*//*
-            val candidateRef = db.collection("candidates").document()
 
-            // Set the candidate ID and save the candidate to Cloud Firestore
-            candidateRef.set(candidate, SetOptions.merge())
-                .addOnSuccessListener {
-                    // Candidate was successfully updated in Cloud Firestore
-                    Toast.makeText(this, "Candidate create successfully", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener {
-                    // An error occurred while updating the candidate in Cloud Firestore
-                    Toast.makeText(this, "Error create candidate: ${it.message}", Toast.LENGTH_LONG)
-                        .show()
-                }
-        }*/
     }
 
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import my.edu.tarc.tarcvote.R
+import my.edu.tarc.tarcvote.ui.admin.AdminActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, AdminActivity::class.java)
             startActivity(intent)
             finish()
         },1000)

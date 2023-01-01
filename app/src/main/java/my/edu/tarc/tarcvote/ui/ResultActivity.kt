@@ -13,6 +13,7 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+        supportActionBar?.hide()
 
         val listView = findViewById<ListView>(R.id.ResultListView)
         val db = FirebaseFirestore.getInstance()
