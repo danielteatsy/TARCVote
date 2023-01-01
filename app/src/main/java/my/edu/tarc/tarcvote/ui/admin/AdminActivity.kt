@@ -1,6 +1,8 @@
 package my.edu.tarc.tarcvote.ui.admin
 
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -44,7 +46,16 @@ class AdminActivity : AppCompatActivity() {
                     R.id.nav_results -> intent.setClass(this@AdminActivity, ResultActivity::class.java)
                     R.id.nav_profile -> intent.setClass(this@AdminActivity, ProfileActivity::class.java)
                     R.id.action_settings -> intent.setClass(this@AdminActivity, SettingsActivity::class.java)
-                    R.id.action_logout -> intent.setClass(this@AdminActivity, LoginActivity::class.java)
+                    R.id.action_logout -> {
+                        val preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
+                        preferences.edit().clear().apply()
+
+                        // Navigate to the login screen
+                        intent.setClass(this, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
                 startActivity(intent)
                 true
