@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Candidate
@@ -39,7 +38,7 @@ class CandidateAdapater(private val candidates: List<Candidate>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.items_candidate, parent, false)
+            .inflate(R.layout.items_campaign, parent, false)
         return ViewHolder(view)
     }
 
