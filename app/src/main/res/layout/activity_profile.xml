@@ -18,34 +18,57 @@
 
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Email"
+                android:textColor="#050505"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textAdminEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="TextView"
+                android:textColor="#000000" />
 
             <TextView
-                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Name"
+                android:textColor="#0C0C0C"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/textAdminName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="TextView"
+                android:textColor="#000000" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnAdminProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_bg"
+                android:text="Update"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </ScrollView>
 
