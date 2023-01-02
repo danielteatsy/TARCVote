@@ -16,21 +16,23 @@
         android:theme="@style/Theme.TARCVote"
         tools:targetApi="31">
         <activity
-            android:name=".VoteListActivity"
+            android:name=".ui.admin.AdminResultActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CampaignActivity"
+            android:name=".ui.admin.AdminProfileActivity"
+            android:parentActivityName=".ui.admin.AdminActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.VoteListActivity"
+            android:parentActivityName=".ui.UserActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -38,6 +40,7 @@
         </activity>
         <activity
             android:name=".ui.ProfileActivity"
+            android:parentActivityName=".ui.UserActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -45,6 +48,7 @@
         </activity>
         <activity
             android:name=".ui.ResultActivity"
+            android:parentActivityName=".ui.VoteListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -52,6 +56,7 @@
         </activity>
         <activity
             android:name=".ui.admin.EditCampaignActivity"
+            android:parentActivityName=".ui.admin.AdminActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -73,13 +78,15 @@
         </activity>
         <activity
             android:name=".ui.admin.CreateCampaignActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".ui.admin.AdminActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.VoteActivity"
+            android:parentActivityName=".ui.VoteListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

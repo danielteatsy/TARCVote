@@ -18,7 +18,8 @@ class VoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vote)
-        supportActionBar?.hide()
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = "Cast Vote"
 
 
     }

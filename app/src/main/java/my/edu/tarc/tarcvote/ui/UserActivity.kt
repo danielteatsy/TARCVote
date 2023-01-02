@@ -11,10 +11,11 @@ import my.edu.tarc.tarcvote.R
 
 class UserActivity : AppCompatActivity() {
 
-    private lateinit var cardLogout: CardView
-    private lateinit var Voter: CardView
-    private lateinit var UserResult: CardView
-    private lateinit var userNameTextView: TextView
+    private lateinit var logout: CardView
+    private lateinit var voter: CardView
+    private lateinit var Result:CardView
+    private lateinit var Profile: CardView
+    private lateinit var Name: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class UserActivity : AppCompatActivity() {
                 .addOnSuccessListener { document ->
                     val userName = document.getString("name")
                     // Display the user name in the TextView
-                    userNameTextView.text = userName
+                    Name.text = userName
                 }
                 .addOnFailureListener {
                     // Handle errors here
@@ -39,26 +40,31 @@ class UserActivity : AppCompatActivity() {
 
 
 
-        cardLogout = findViewById(R.id.LogOut)
-        Voter = findViewById(R.id.UserVote)
-        userNameTextView = findViewById(R.id.UserTextName)
-        UserResult = findViewById(R.id.UserResult)
-        /*candidateList = findViewById(R.id.CandidateList)*/
+        logout = findViewById(R.id.LogOut)
+        voter = findViewById(R.id.UserVote)
+        Name = findViewById(R.id.UserTextName)
+        Result = findViewById(R.id.UserResult)
+        Profile = findViewById(R.id.userProfile)
 
-        cardLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this@UserActivity, LoginActivity::class.java)
+        logout.setOnClickListener {
+            intent.setClass(this, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
             finish()
         }
 
-        Voter.setOnClickListener {
+        voter.setOnClickListener {
             val intent = Intent(this@UserActivity, VoteActivity::class.java)
             startActivity(intent)
         }
 
-        UserResult.setOnClickListener{
+        Result.setOnClickListener{
             val intent = Intent(this@UserActivity, ResultActivity::class.java)
+            startActivity(intent)
+        }
+
+        Profile.setOnClickListener{
+            val intent = Intent(this@UserActivity, ProfileActivity::class.java)
             startActivity(intent)
         }
     }

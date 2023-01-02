@@ -8,5 +8,7 @@ class VoteListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vote_list)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = "Vote List"
     }
 }

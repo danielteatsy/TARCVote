@@ -17,17 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:logo="@drawable/ic_baseline_arrow_back_24"
-                app:title="Vote Poll"
-                app:titleMarginStart="65dp" />
+
 
             <TextView
                 android:id="@+id/textPollTitle"

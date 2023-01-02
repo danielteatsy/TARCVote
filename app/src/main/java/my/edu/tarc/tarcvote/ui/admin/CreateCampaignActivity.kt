@@ -11,7 +11,8 @@ class CreateCampaignActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_campaign)
-        supportActionBar?.hide()
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = "Create New Poll"
 
 
 

@@ -44,8 +44,8 @@ class AdminActivity : AppCompatActivity() {
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.nav_poll -> intent.setClass(this@AdminActivity, AdminActivity::class.java)
-                    R.id.nav_results -> intent.setClass(this@AdminActivity, ResultActivity::class.java)
-                    R.id.nav_profile -> intent.setClass(this@AdminActivity, ProfileActivity::class.java)
+                    R.id.nav_results -> intent.setClass(this@AdminActivity, AdminResultActivity::class.java)
+                    R.id.nav_profile -> intent.setClass(this@AdminActivity, AdminProfileActivity::class.java)
                     R.id.action_logout -> {
                         val preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
                         preferences.edit().clear().apply()
