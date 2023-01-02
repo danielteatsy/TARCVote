@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.ui.LoginActivity
@@ -61,7 +62,7 @@ class AdminActivity : AppCompatActivity() {
             }
 
         // Button to create poll
-        val button : Button = findViewById(R.id.fab)
+        val button : FloatingActionButton = findViewById(R.id.fab)
 
         button.setOnClickListener{
             val intent = Intent (this@AdminActivity, CreateCampaignActivity::class.java)
