@@ -59,7 +59,7 @@
                 android:textColor="#000000" />
 
             <Button
-                android:id="@+id/btnAdminProfile"
+                android:id="@+id/btnAddCampaign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"

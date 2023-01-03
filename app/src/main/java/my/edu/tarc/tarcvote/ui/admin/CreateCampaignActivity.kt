@@ -12,7 +12,7 @@ class CreateCampaignActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_campaign)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = "Create New Poll"
+        supportActionBar!!.title = "Create New Campaign"
 
 
 

@@ -93,7 +93,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/btnAddOption"
+                android:id="@+id/btnAddCampaign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -104,7 +104,7 @@
                 android:text="Add Option" />
 
             <Button
-                android:id="@+id/btnAdminProfile"
+                android:id="@+id/btnAddCampaign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"

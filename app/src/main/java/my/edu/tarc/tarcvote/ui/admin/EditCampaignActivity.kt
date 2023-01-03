@@ -20,7 +20,7 @@ class EditCampaignActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_campaign)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = "Edit Poll"
+        supportActionBar!!.title = "Edit Campaign"
 
 
 
