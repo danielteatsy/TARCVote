@@ -7,17 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
-import my.edu.tarc.tarcvote.ui.organiser.OrganiserActivity
 
 
 class RegisterActivity : AppCompatActivity(){
@@ -32,13 +27,12 @@ class RegisterActivity : AppCompatActivity(){
         val db = FirebaseFirestore.getInstance()
 
 
-        val button: Button = findViewById(R.id.btnSigUp)
+        val button: Button = findViewById(R.id.btnSignUp)
         val name: TextInputEditText = findViewById(R.id.regName)
         val email: TextInputEditText = findViewById(R.id.regEmail)
         val password: TextInputEditText = findViewById(R.id.regPassword)
         val cPassword: TextInputEditText = findViewById(R.id.regCPassword)
         val signIn: TextView = findViewById(R.id.textSignIn)
-        val isValid = false
 
         signIn.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
