@@ -84,16 +84,9 @@
                 android:text="Hide result from voters until poll ends"
                 android:textSize="14sp" />
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1" />
 
             <Button
-                android:id="@+id/btnAddCampaign"
+                android:id="@+id/btnAddCandidate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -101,10 +94,10 @@
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_bg"
-                android:text="Add Option" />
+                android:text="Add Candidate" />
 
             <Button
-                android:id="@+id/btnAddCampaign"
+                android:id="@+id/btnEditCampaign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"
@@ -112,7 +105,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_bg"
-                android:text="Save Poll"
+                android:text="Save Campaign"
                 android:textColor="#FFFFFF" />
 
             <androidx.appcompat.widget.AppCompatButton

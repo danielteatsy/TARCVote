@@ -6,7 +6,7 @@
         <item
             android:id="@+id/nav_poll"
             android:icon="@drawable/ic_baseline_how_to_vote_24"
-            android:title="@string/CreatePoll" />
+            android:title="@string/CreateCampaign" />
         <item
             android:id="@+id/nav_results"
             android:icon="@drawable/ic_baseline_bar_chart_24"

@@ -17,10 +17,10 @@
     <string name="logout">Logout</string>
     <string name="title_activity_users">UsersActivity</string>
     <string name="delete_button">delete_button</string>
-    <string name="addoption">addoption</string>
+    <string name="addCandidate">addCandidate</string>
     <string name="option_choice">Option/Choice</string>
     <string name="fab">fab</string>
-    <string name="CreatePoll">Create Poll</string>
+    <string name="CreateCampaign">Create Campaign</string>
     <string name="results">Results</string>
     <string name="profile">Profile</string>
 </resources>
