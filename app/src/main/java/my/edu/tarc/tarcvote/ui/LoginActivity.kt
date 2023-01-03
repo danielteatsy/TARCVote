@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             // Check if the email address is not a TARC email
-            if (!logEmail.endsWith("@tarc.edu.my") && !logEmail.endsWith("@student.tarc.edu.my")) {
+            if (!logEmail.endsWith("@gmail.com") && !logEmail.endsWith("@student.tarc.edu.my")) {
                 email.error = "Please enter a valid TARC email"
                 Toast.makeText(this@LoginActivity, "Please enter a valid TARC email", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -84,10 +84,12 @@ class LoginActivity : AppCompatActivity() {
                                     // User is an admin, start the AdminActivity
                                     val intent = Intent(this@LoginActivity, OrganiserActivity::class.java)
                                     startActivity(intent)
+                                    finish()
                                 } else if (user.contains("isUser") && user["isUser"] == "1") {
                                     // User is a regular user, start the UserActivity
                                     val intent = Intent(this@LoginActivity, UserActivity::class.java)
                                     startActivity(intent)
+                                    finish()
                                 } else {
                                 // User is not an admin or a regular user, display an error
                                     Toast.makeText(this@LoginActivity, "Error: User role not recognized", Toast.LENGTH_SHORT).show()
