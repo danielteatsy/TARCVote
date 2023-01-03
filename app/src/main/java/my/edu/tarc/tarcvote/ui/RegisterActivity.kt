@@ -35,7 +35,7 @@ class RegisterActivity : AppCompatActivity(){
         val email: TextInputEditText = findViewById(R.id.regEmail)
         val password: TextInputEditText = findViewById(R.id.regPassword)
         val cPassword: TextInputEditText = findViewById(R.id.regCPassword)
-        var isValid = false
+        val isValid = false
 
 
 
