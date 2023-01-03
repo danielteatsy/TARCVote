@@ -125,7 +125,7 @@ class RegisterActivity : AppCompatActivity(){
 
                     if (regEmail.endsWith("tarc.edu.my")) {
                         // User is an admin
-                        user["isUser"] = "0"
+                        user["isAdmin"] = "0"
                     } else if (regEmail.endsWith("student.tarc.edu.my")) {
                         // User is a user
                         user["isUser"] = "1"
