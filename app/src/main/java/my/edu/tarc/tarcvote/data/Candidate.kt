@@ -8,6 +8,5 @@ data class Candidate(
     val name: String,
     val description: String,
     val voteList: List<Vote>,
-    val imageUrl: String,
     val votes: Int
 )
