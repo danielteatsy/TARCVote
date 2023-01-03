@@ -1,9 +1,11 @@
 package my.edu.tarc.tarcvote.ui
 
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -72,19 +74,53 @@ class RegisterActivity : AppCompatActivity(){
                 Toast.makeText(this@RegisterActivity, "Password must contain at least one digit",Toast.LENGTH_SHORT).show()
             }else if (isValid) {
 
-                auth.createUserWithEmailAndPassword(regEmail, regPassword).addOnCompleteListener {
-                    val users = hashMapOf(
+                auth.createUserWithEmailAndPassword(regEmail, regPassword).addOnCompleteListener { it ->
+                    if (it.isSuccessful) {
+                        // Send verification email
+                        auth.currentUser?.sendEmailVerification()
+                            ?.addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    // Email sent
+                                    Log.d(TAG, "Verification email sent to ${auth.currentUser?.email}")
+                                } else {
+                                    // Email not sent
+                                    Log.e(TAG, "Error sending verification email", it.exception)
+                                }
+                            }
+
+                    val user = hashMapOf(
                         "name" to regName,
                         "email" to regEmail,
                         "uid" to auth.currentUser!!.uid
                     )
 
+                        if (regEmail.endsWith("tarc.edu.my")) {
+                            // User is an admin
+                            user["isUser"] = "0"
+                        } else if (regEmail.endsWith("student.tarc.edu.my")) {
+                            // User is a user
+                            user["isUser"] = "1"
+                        } else {
+                            // Invalid email domain
+                            Toast.makeText(this@RegisterActivity, "Error: Invalid email domain", Toast.LENGTH_SHORT).show()
+                        }
+                        db.collection("users").document(auth.currentUser!!.uid).set(user).addOnSuccessListener {
+                            Toast.makeText(this@RegisterActivity, "Account Created", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this@RegisterActivity, "Something went wrong, try again", Toast.LENGTH_SHORT).show()
+                            }
+
+                } else {
+                        Toast.makeText(this, "Something went wrong, try again", Toast.LENGTH_SHORT).show()
                 }
             }
 
-
-
-
+        } else {
+                Toast.makeText(this, "Something went wrong, try again", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
