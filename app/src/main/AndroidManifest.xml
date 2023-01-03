@@ -16,15 +16,15 @@
         android:theme="@style/Theme.TARCVote"
         tools:targetApi="31">
         <activity
-            android:name=".ui.admin.AdminResultActivity"
+            android:name=".ui.organiser.AdminResultActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.admin.AdminProfileActivity"
-            android:parentActivityName=".ui.admin.AdminActivity"
+            android:name=".ui.organiser.AdminProfileActivity"
+            android:parentActivityName=".ui.organiser.OrganiserActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -55,15 +55,15 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.admin.EditCampaignActivity"
-            android:parentActivityName=".ui.admin.AdminActivity"
+            android:name=".ui.organiser.EditCampaignActivity"
+            android:parentActivityName=".ui.organiser.OrganiserActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.admin.AdminActivity"
+            android:name=".ui.organiser.OrganiserActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -77,9 +77,9 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.admin.CreateCampaignActivity"
+            android:name=".ui.organiser.CreateCampaignActivity"
             android:exported="false"
-            android:parentActivityName=".ui.admin.AdminActivity">
+            android:parentActivityName=".ui.organiser.OrganiserActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

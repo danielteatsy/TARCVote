@@ -1,25 +1,25 @@
-package my.edu.tarc.tarcvote.ui.admin
+package my.edu.tarc.tarcvote.ui.organiser
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import my.edu.tarc.tarcvote.R
 
-class CreateCampaignActivity : AppCompatActivity() {
+class EditCampaignActivity : AppCompatActivity() {
+
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_campaign)
+        setContentView(R.layout.activity_edit_campaign)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = "Create New Campaign"
-
-
+        supportActionBar!!.title = "Edit Campaign"
 
 
 
 
 
     }
+
 
 }
