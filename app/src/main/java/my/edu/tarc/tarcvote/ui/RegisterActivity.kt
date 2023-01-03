@@ -70,7 +70,7 @@ class RegisterActivity : AppCompatActivity(){
             }
 
             // Check if the email is a valid TARC email
-            if (!regEmail.endsWith("tarc.edu.my") && !regEmail.endsWith("student.tarc.edu.my")) {
+            if (!regEmail.endsWith("@tarc.edu.my") && !regEmail.endsWith("@student.tarc.edu.my")) {
                 email.error = "Please enter your TARC email"
                 Toast.makeText(this@RegisterActivity, "Please enter your TARC email", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -123,10 +123,10 @@ class RegisterActivity : AppCompatActivity(){
                         "uid" to auth.currentUser!!.uid
                     )
 
-                    if (regEmail.endsWith("tarc.edu.my")) {
+                    if (regEmail.endsWith("@tarc.edu.my")) {
                         // User is an admin
                         user["isAdmin"] = "0"
-                    } else if (regEmail.endsWith("student.tarc.edu.my")) {
+                    } else if (regEmail.endsWith("@student.tarc.edu.my")) {
                         // User is a user
                         user["isUser"] = "1"
                     } else {
