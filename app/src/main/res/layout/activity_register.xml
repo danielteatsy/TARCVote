@@ -101,7 +101,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:endIconMode="password_toggle">
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/regPassword"
@@ -118,7 +118,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 android:elevation="82dp"
-                app:endIconMode="password_toggle">
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/regCPassword"
