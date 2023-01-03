@@ -27,7 +27,11 @@ class CreateCampaignActivity : AppCompatActivity() {
         val campaign: Button = findViewById(R.id.btnAddCampaign)
 
         val db = FirebaseFirestore.getInstance()
-        val database = FirebaseStorage.getInstance()
+
+
+
+
+        //Calendar
 
 
 

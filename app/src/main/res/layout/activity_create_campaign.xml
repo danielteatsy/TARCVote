@@ -59,30 +59,6 @@
                 android:text="Select DateTime"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:text="Result visibility"
-                android:textColor="#000000"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <Switch
-                android:id="@+id/visibillity_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:minHeight="48dp"
-                android:text="Hide result from voters until poll ends"
-                android:textSize="14sp" />
 
             <ListView
                 android:id="@+id/candidateView"
