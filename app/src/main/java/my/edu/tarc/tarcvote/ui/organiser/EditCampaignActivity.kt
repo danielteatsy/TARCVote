@@ -66,7 +66,7 @@ class EditCampaignActivity : AppCompatActivity() {
         }
 
 
-
+        //Save campaign have issue
         editCampaign.setOnClickListener {
             // Update the fields of the Campaign object
             val updatedTitle = titleEditText.text.toString()
