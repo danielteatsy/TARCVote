@@ -7,6 +7,5 @@ data class Candidate(
     val userRef: DocumentReference,
     val name: String,
     val voteList: List<Vote>,
-    val imageUrl: String,
     val votes: Int
 )

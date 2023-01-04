@@ -43,8 +43,6 @@ class CreateCampaignActivity : AppCompatActivity() {
 
 
 
-
-
         //Create DateTime using Widget calendar
         datetimeTextView = findViewById(R.id.DateTime)
         datetimeTextView.setOnClickListener {
@@ -52,7 +50,6 @@ class CreateCampaignActivity : AppCompatActivity() {
         }
 
 
-        // Set up the "Add Candidate" button click listener
 
 
     }
