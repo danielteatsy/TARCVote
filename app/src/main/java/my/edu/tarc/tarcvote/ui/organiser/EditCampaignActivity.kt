@@ -11,6 +11,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
+import java.util.*
 
 class EditCampaignActivity : AppCompatActivity() {
 
@@ -39,6 +40,8 @@ class EditCampaignActivity : AppCompatActivity() {
         delCampaign = findViewById(R.id.btndelCampaign)
         editCampaign = findViewById(R.id.btnSaveCampaign)
         db = FirebaseFirestore.getInstance()
+
+        val campaignId = UUID.randomUUID().toString()
 
         candidate1Text = findViewById(R.id.textCandidate1)
         candidate2Text = findViewById(R.id.textCandidate2)
@@ -84,7 +87,7 @@ class EditCampaignActivity : AppCompatActivity() {
             }
 
             if (campaign != null) {
-                db.collection("campaigns").document(campaign.id)
+                db.collection("campaigns").document(campaignId)
                     .update(mapOf(
                         "title" to updatedTitle,
                         "endDateTime" to Timestamp.now(),
