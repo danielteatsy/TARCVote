@@ -16,21 +16,6 @@
         android:theme="@style/Theme.TARCVote"
         tools:targetApi="31">
         <activity
-            android:name=".ui.organiser.AdminResultActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.organiser.AdminProfileActivity"
-            android:parentActivityName=".ui.organiser.OrganiserActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.VoteListActivity"
             android:parentActivityName=".ui.UserActivity"
             android:exported="false">

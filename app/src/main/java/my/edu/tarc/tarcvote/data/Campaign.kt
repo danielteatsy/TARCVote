@@ -4,9 +4,9 @@ import com.google.firebase.Timestamp
 
 data class Campaign(
     val id : String,
-    val name: String,
+    val title: String,
     val endDateTime: Timestamp,
-    val candidateList: List<Candidate>,
-    val createdAt: Timestamp,
-    val updatedAt: Timestamp,
+    val candidate1: Candidate,
+    val candidate2: Candidate,
+    val candidate3: Candidate
 )

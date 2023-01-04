@@ -4,8 +4,5 @@ import com.google.firebase.firestore.DocumentReference
 
 data class Candidate(
     val id: String,
-    val userRef: DocumentReference,
-    val name: String,
-    val voteList: List<Vote>,
-    val votes: Int
+    val name: String
 )
