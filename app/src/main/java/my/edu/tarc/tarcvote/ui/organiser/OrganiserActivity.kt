@@ -126,7 +126,7 @@ class OrganiserActivity : AppCompatActivity() {
             holder.itemView.setOnClickListener {
                 // Start the EditCampaignActivity and pass the campaign data as an extra
                 val intent = Intent(this@OrganiserActivity, EditCampaignActivity::class.java)
-                intent.putExtra("CAMPAIGN_DATA", campaign as java.io.Serializable)
+                intent.putExtra("CAMPAIGN_DATA", campaign)
                 startActivity(intent)
             }
 
