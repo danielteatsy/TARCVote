@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 data class Candidate(
     val id: String = "",
-    val name: String? = ""
+    var name: String? = ""
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

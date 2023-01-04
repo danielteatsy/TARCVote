@@ -6,8 +6,8 @@ import com.google.firebase.Timestamp
 
 data class Campaign(
     val id: String,
-    val title: String,
-    val endDateTime: Timestamp,
+    var title: String,
+    var endDateTime: Timestamp,
     val candidate1: Candidate,
     val candidate2: Candidate,
     val candidate3: Candidate
@@ -26,6 +26,7 @@ data class Campaign(
 
     override fun describeContents(): Int = 0
 
+
     companion object CREATOR : Parcelable.Creator<Campaign> {
         override fun createFromParcel(parcel: Parcel): Campaign {
             return Campaign(
@@ -39,5 +40,15 @@ data class Campaign(
         }
 
         override fun newArray(size: Int): Array<Campaign?> = arrayOfNulls(size)
+    }
+
+    fun toMap(): Map<String, Any> {
+        return mapOf(
+            "title" to title,
+            "endDateTime" to endDateTime,
+            "candidate1" to candidate1,
+            "candidate2" to candidate2,
+            "candidate3" to candidate3
+        )
     }
 }

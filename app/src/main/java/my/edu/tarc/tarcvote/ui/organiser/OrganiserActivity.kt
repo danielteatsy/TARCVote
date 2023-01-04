@@ -127,6 +127,7 @@ class OrganiserActivity : AppCompatActivity() {
                 // Start the EditCampaignActivity and pass the campaign data as an extra
                 val intent = Intent(this@OrganiserActivity, EditCampaignActivity::class.java)
                 intent.putExtra("CAMPAIGN_DATA", campaign)
+                intent.putExtra("CAMPAIGN_ID", campaign.id)
                 startActivity(intent)
             }
 
