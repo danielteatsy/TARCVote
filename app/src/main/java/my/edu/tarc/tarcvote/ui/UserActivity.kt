@@ -54,7 +54,7 @@ class UserActivity : AppCompatActivity() {
         }
 
         voter.setOnClickListener {
-            val intent = Intent(this@UserActivity, VoteActivity::class.java)
+            val intent = Intent(this@UserActivity, VoteListActivity::class.java)
             startActivity(intent)
         }
 

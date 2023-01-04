@@ -41,14 +41,4 @@ data class Campaign(
 
         override fun newArray(size: Int): Array<Campaign?> = arrayOfNulls(size)
     }
-
-    fun toMap(): Map<String, Any> {
-        return mapOf(
-            "title" to title,
-            "endDateTime" to endDateTime,
-            "candidate1" to candidate1,
-            "candidate2" to candidate2,
-            "candidate3" to candidate3
-        )
-    }
 }

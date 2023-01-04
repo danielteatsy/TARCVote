@@ -11,14 +11,21 @@
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="RadioButton"></RadioButton>
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="RadioButton" />
 
 
     </RadioGroup>
 
-    <ImageView
-        android:id="@+id/imageVote"
-        android:layout_width="302dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_baseline_image_24" />
 </LinearLayout>

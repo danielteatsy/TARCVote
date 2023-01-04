@@ -44,6 +44,7 @@ class EditCampaignActivity : AppCompatActivity() {
         candidate2Text = findViewById(R.id.textCandidate2)
         candidate3Text = findViewById(R.id.textCandidate3)
 
+        intent.getStringExtra("CAMPAIGN_ID")
         val campaign = intent.getParcelableExtra<Campaign>("CAMPAIGN_DATA")
 
         if (campaign != null) {
@@ -53,7 +54,7 @@ class EditCampaignActivity : AppCompatActivity() {
             titleEditText.setText(campaign.title)
         }
         if (campaign != null) {
-            datetimeTextView.setText(campaign.endDateTime.toDate().toString())
+            datetimeTextView.text = campaign.endDateTime.toDate().toString()
         }
         if (campaign != null) {
             candidate1Text.setText(campaign.candidate1.name)
@@ -82,50 +83,40 @@ class EditCampaignActivity : AppCompatActivity() {
                 candidate3.name = updatedCandidate3
             }
 
-            // Save the updated Campaign object to the database
             if (campaign != null) {
                 db.collection("campaigns").document(campaign.id)
-                    .get()
-                    .addOnSuccessListener { documentSnapshot ->
-                        if (documentSnapshot != null) {
-                            // Document exists, proceed with update
-                            db.collection("campaigns").document(campaign.id)
-                                .update(mapOf(
-                                    "title" to updatedTitle,
-                                    "endDateTime" to Timestamp.now(),
-                                    "candidate1" to campaign.candidate1,
-                                    "candidate2" to campaign.candidate2,
-                                    "candidate3" to campaign.candidate3
-                                ))
-                                .addOnSuccessListener {
-                                    // Update successful, show a message to the user
-                                    Toast.makeText(this, "Campaign updated", Toast.LENGTH_SHORT).show()
-                                }
-                                .addOnFailureListener {
-                                    // Update failed, show an error message
-                                    Toast.makeText(this, "Error updating campaign: $it", Toast.LENGTH_SHORT).show()
-                                }
-                        } else {
-                            // Document does not exist, show an error message
-                            Toast.makeText(this, "Error: Document does not exist", Toast.LENGTH_SHORT).show()
-                        }
+                    .update(mapOf(
+                        "title" to updatedTitle,
+                        "endDateTime" to Timestamp.now(),
+                        "candidate1" to mapOf(
+                            "name" to updatedCandidate1
+                        ),
+                        "candidate2" to mapOf(
+                            "name" to updatedCandidate2
+                        ),
+                        "candidate3" to mapOf(
+                            "name" to updatedCandidate3
+                        )
+                    ))
+                    .addOnSuccessListener {
+                        // Update successful, show a message to the user
+                        Toast.makeText(this, "Campaign updated", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener {
-                        // Error getting document, show an error message
-                        Toast.makeText(this, "Error getting document: $it", Toast.LENGTH_SHORT).show()
+                        // Update failed, show an error message
+                        Toast.makeText(this, "Error updating campaign: $it", Toast.LENGTH_SHORT).show()
                     }
             }
-
-            // Confirm the edit action with the user
-            AlertDialog.Builder(this)
-                .setTitle("Edit Campaign")
-                .setMessage("Are you sure you want to save the changes to this campaign?")
-                .setPositiveButton("Yes") { _, _ ->
-                    // Navigate back to the OrganiserActivity
-                    finish()
-                }
-                .setNegativeButton("No", null)
-                .show()
+                    // Confirm the edit action with the user
+                    AlertDialog.Builder(this)
+                        .setTitle("Edit Campaign")
+                        .setMessage("Are you sure you want to save the changes to this campaign?")
+                        .setPositiveButton("Yes") { _, _ ->
+                            // Navigate back to the OrganiserActivity
+                            finish()
+                        }
+                        .setNegativeButton("No", null)
+                        .show()
         }
 
 
@@ -147,7 +138,7 @@ class EditCampaignActivity : AppCompatActivity() {
 
     }
 
-    fun deleteCampaign(campaign: Campaign) {
+    private fun deleteCampaign(campaign: Campaign) {
         db.collection("campaigns").document(campaign.id).delete()
             .addOnSuccessListener {
                 // Navigate back to the OrganiserActivity
