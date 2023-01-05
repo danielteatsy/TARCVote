@@ -59,7 +59,7 @@ class UserActivity : AppCompatActivity() {
         }
 
         Result.setOnClickListener{
-            val intent = Intent(this@UserActivity, ResultActivity::class.java)
+            val intent = Intent(this@UserActivity, ResultListActivity::class.java)
             startActivity(intent)
         }
 

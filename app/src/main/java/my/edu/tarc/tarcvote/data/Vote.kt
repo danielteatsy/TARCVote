@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 
 data class Vote(
-    val userUid: String,
-    val timestamp: Timestamp
+    val userId: String,
+    val campaignId: String,
+    val candidateId: String
 )

@@ -13,6 +13,8 @@ data class Campaign(
     val candidate3: Candidate
 ): Parcelable {
 
+
+
     constructor() : this("", "", Timestamp.now(), Candidate(), Candidate(), Candidate())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

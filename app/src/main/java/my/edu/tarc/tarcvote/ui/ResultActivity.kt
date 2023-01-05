@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ListView
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
+import my.edu.tarc.tarcvote.data.Campaign
 import my.edu.tarc.tarcvote.data.Candidate
 
 class ResultActivity : AppCompatActivity() {
@@ -15,6 +16,9 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = "Result"
+
+
+        val campaign = intent.getParcelableExtra<Campaign>("CAMPAIGN_DATA")
 
 
 

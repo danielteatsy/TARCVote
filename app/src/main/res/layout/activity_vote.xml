@@ -38,11 +38,35 @@
                 android:layout_weight="1"
                 android:text="TextView" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:layout_weight="1" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <RadioButton
+                    android:id="@+id/radioCandidate1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:text="RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/radioCandidate2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:text="RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/radioCandidate3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:text="RadioButton" />
+
+
+            </RadioGroup>
 
             <Button
                 android:id="@+id/btnSubmit"

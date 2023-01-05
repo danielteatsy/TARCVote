@@ -8,19 +8,19 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioCandidate1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="RadioButton" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioCandidate2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="RadioButton" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioCandidate3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="RadioButton" />

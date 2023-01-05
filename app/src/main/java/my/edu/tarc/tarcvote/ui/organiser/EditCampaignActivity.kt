@@ -41,66 +41,47 @@ class EditCampaignActivity : AppCompatActivity() {
         editCampaign = findViewById(R.id.btnSaveCampaign)
         db = FirebaseFirestore.getInstance()
 
-        val campaignId = UUID.randomUUID().toString()
 
         candidate1Text = findViewById(R.id.textCandidate1)
         candidate2Text = findViewById(R.id.textCandidate2)
         candidate3Text = findViewById(R.id.textCandidate3)
 
-        intent.getStringExtra("CAMPAIGN_ID")
+        // Retrieve the Campaign object from the Intent
         val campaign = intent.getParcelableExtra<Campaign>("CAMPAIGN_DATA")
 
-        if (campaign != null) {
-            intent.putExtra("CAMPAIGN_ID", campaign.id)
-        }
-        if (campaign != null) {
-            titleEditText.setText(campaign.title)
-        }
+        // Update the views with the data from the Campaign object
         if (campaign != null) {
             datetimeTextView.text = campaign.endDateTime.toDate().toString()
-        }
-        if (campaign != null) {
+            titleEditText.setText(campaign.title)
             candidate1Text.setText(campaign.candidate1.name)
-        }
-        if (campaign != null) {
             candidate2Text.setText(campaign.candidate2.name)
-        }
-        if (campaign != null) {
             candidate3Text.setText(campaign.candidate3.name)
         }
 
-
-        //Save campaign have issue
+        // Set up the click listener for the save button
         editCampaign.setOnClickListener {
-            // Update the fields of the Campaign object
+        // Update the fields of the Campaign object
             val updatedTitle = titleEditText.text.toString()
             val updatedCandidate1 = candidate1Text.text.toString()
             val updatedCandidate2 = candidate2Text.text.toString()
             val updatedCandidate3 = candidate3Text.text.toString()
-
-            campaign?.apply {
-                title = updatedTitle
-                endDateTime = Timestamp.now()
-                candidate1.name = updatedCandidate1
-                candidate2.name = updatedCandidate2
-                candidate3.name = updatedCandidate3
+            if (campaign != null) {
+                campaign.title = updatedTitle
+            }
+            if (campaign != null) {
+                campaign.candidate1.name = updatedCandidate1
+            }
+            if (campaign != null) {
+                campaign.candidate2.name = updatedCandidate2
+            }
+            if (campaign != null) {
+                campaign.candidate3.name = updatedCandidate3
             }
 
+            // Save the updated data to the database
             if (campaign != null) {
-                db.collection("campaigns").document(campaignId)
-                    .update(mapOf(
-                        "title" to updatedTitle,
-                        "endDateTime" to Timestamp.now(),
-                        "candidate1" to mapOf(
-                            "name" to updatedCandidate1
-                        ),
-                        "candidate2" to mapOf(
-                            "name" to updatedCandidate2
-                        ),
-                        "candidate3" to mapOf(
-                            "name" to updatedCandidate3
-                        )
-                    ))
+                db.collection("campaigns").document(campaign.toString())
+                    .set(campaign)
                     .addOnSuccessListener {
                         // Update successful, show a message to the user
                         Toast.makeText(this, "Campaign updated", Toast.LENGTH_SHORT).show()
@@ -110,52 +91,37 @@ class EditCampaignActivity : AppCompatActivity() {
                         Toast.makeText(this, "Error updating campaign: $it", Toast.LENGTH_SHORT).show()
                     }
             }
-                    // Confirm the edit action with the user
-                    AlertDialog.Builder(this)
-                        .setTitle("Edit Campaign")
-                        .setMessage("Are you sure you want to save the changes to this campaign?")
-                        .setPositiveButton("Yes") { _, _ ->
-                            // Navigate back to the OrganiserActivity
-                            finish()
-                        }
-                        .setNegativeButton("No", null)
-                        .show()
-        }
+    }
 
 
+        // Set up the click listener for the delete button
         delCampaign.setOnClickListener {
-            // Show a message dialog to confirm the delete action
+// Confirm the delete action with the user
             AlertDialog.Builder(this)
                 .setTitle("Delete Campaign")
                 .setMessage("Are you sure you want to delete this campaign?")
                 .setPositiveButton("Yes") { _, _ ->
-                    if (campaign != null) {
-                        deleteCampaign(campaign)
-                    }
+// Delete the campaign from the database
+                    db.collection("campaigns").document(campaign.toString())
+                        .delete()
+                        .addOnSuccessListener {
+// Delete successful, show a message to the user
+                            Toast.makeText(this, "Campaign deleted", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+// Delete failed, show an error message
+                            Toast.makeText(this, "Error deleting campaign: $it", Toast.LENGTH_SHORT).show()
+                        }
+
+                            // Navigate back to the OrganiserActivity
+                            finish()
                 }
                 .setNegativeButton("No", null)
                 .show()
         }
 
 
-
     }
-
-    private fun deleteCampaign(campaign: Campaign) {
-        db.collection("campaigns").document(campaign.id).delete()
-            .addOnSuccessListener {
-                // Navigate back to the OrganiserActivity
-                finish()
-            }
-            .addOnFailureListener { e ->
-                // Show an error message
-                Toast.makeText(this, "Error deleting campaign: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-
-
-
-
-
 }
+
+
