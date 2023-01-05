@@ -10,8 +10,10 @@ data class Campaign(
     var endDateTime: Timestamp,
     val candidate1: Candidate,
     val candidate2: Candidate,
-    val candidate3: Candidate
+    val candidate3: Candidate,
 ): Parcelable {
+
+
 
 
 

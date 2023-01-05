@@ -63,7 +63,7 @@ class ResultListActivity : AppCompatActivity() {
 
             holder.itemView.setOnClickListener {
                 // Start the EditCampaignActivity and pass the campaign data as an extra
-                val intent = Intent(this@ResultListActivity, VoteActivity::class.java)
+                val intent = Intent(this@ResultListActivity, ResultActivity::class.java)
                 intent.putExtra("CAMPAIGN_DATA", campaign)
                 intent.putExtra("CAMPAIGN_ID", campaign.id)
                 startActivity(intent)
