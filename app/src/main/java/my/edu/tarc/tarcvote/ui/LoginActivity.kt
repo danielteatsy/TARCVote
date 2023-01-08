@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             // Check if the email address is not a TARC email
-            if (!logEmail.endsWith("@gmail.com") && !logEmail.endsWith("@student.tarc.edu.my")) {
+            if (!logEmail.endsWith("@tarc.edu.my") && !logEmail.endsWith("@gmail.com")) {
                 email.error = "Please enter a valid TARC email"
                 Toast.makeText(this@LoginActivity, "Please enter a valid TARC email", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
