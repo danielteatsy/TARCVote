@@ -109,7 +109,7 @@ class VoteActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Error submitting vote: $it", Toast.LENGTH_SHORT).show()
                             }
                     } else {
-// If the user has already voted, show an error message
+                    // If the user has already voted, show an error message
                         Toast.makeText(this, "You have already voted in this campaign.", Toast.LENGTH_SHORT).show()
                     }
                 }
