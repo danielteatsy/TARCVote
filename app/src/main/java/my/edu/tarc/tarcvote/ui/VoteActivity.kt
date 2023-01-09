@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
+import my.edu.tarc.tarcvote.data.Candidate
 import my.edu.tarc.tarcvote.data.Vote
 
 class VoteActivity : AppCompatActivity() {
@@ -56,9 +57,11 @@ class VoteActivity : AppCompatActivity() {
         intent.putExtra("CAMPAIGN_ID", campaign.id)
         titleEditText.setText(campaign.title)
         datetimeTextView.text = campaign.endDateTime.toDate().toString()
-        candidate1Select.setText(campaign.candidate1.name)
-        candidate2Select.setText(campaign.candidate2.name)
-        candidate3Select.setText(campaign.candidate3.name)
+
+        // Set the text of the RadioButtons to the names of the candidates
+        candidate1Select.text = campaign.candidate1.name
+        candidate2Select.text = campaign.candidate2.name
+        candidate3Select.text = campaign.candidate3.name
 
 
 
@@ -67,56 +70,51 @@ class VoteActivity : AppCompatActivity() {
             val currentUserUid = FirebaseAuth.getInstance().currentUser!!.uid
 
             // Check if the user has already voted
-            db.collection("votes").whereEqualTo("userId", currentUserUid).whereEqualTo("campaignId", campaign.id).get()
+            FirebaseFirestore.getInstance().collection("votes")
+                .whereEqualTo("userId", currentUserUid)
+                .whereEqualTo("campaignId", campaign.id)
+                .get()
                 .addOnSuccessListener { querySnapshot ->
                     if (querySnapshot.isEmpty) {
-                        // If the user has not already voted, allow them to vote
-                        val selectedCandidate: String? = when {
-                            candidate1Select.isChecked -> campaign.candidate1.name
-                            candidate2Select.isChecked -> campaign.candidate2.name
-                            candidate3Select.isChecked -> campaign.candidate3.name
+                        //If the user has not already voted, allow them to vote
+                        val selectedCandidate: Candidate? = when {
+                            candidate1Select.isChecked -> campaign.candidate1
+                            candidate2Select.isChecked -> campaign.candidate2
+                            candidate3Select.isChecked -> campaign.candidate3
                             else -> {
-                                // If no candidate is selected, show an error message
+                            // If no candidate is selected, show an error message
                                 Toast.makeText(this, "Please select a candidate.", Toast.LENGTH_SHORT).show()
                                 return@addOnSuccessListener
                             }
                         }
-
-                        // Determine the vote number based on the selected candidate
-                        val voteNumber = when (selectedCandidate) {
-                            campaign.candidate1.name -> 1
-                            campaign.candidate2.name -> 2
-                            campaign.candidate3.name -> 3
-                            else -> 0
-                        }
-
-                        // Create a new vote object with the current user's uid, the campaign id, the selected candidate's name, and the vote number
                         val vote = selectedCandidate?.let {
-                            Vote(currentUserUid, campaign.id,
-                                it, voteNumber)
+                            it.name?.let { it1 ->
+                                Vote(
+                                    currentUserUid,
+                                    campaign.id,
+                                    it.id,
+                                    it1
+                                )
+                            }
                         }
-
-                        // Save the vote to the database
-                        if (vote != null) {
-                            db.collection("votes").add(vote)
-                                .addOnSuccessListener {
-                                    // If the vote is successfully saved, show a message to the user
-                                    Toast.makeText(this, "Vote successfully cast", Toast.LENGTH_SHORT).show()
-                                }
-                                .addOnFailureListener {
-                                    // If the vote fails to save, show an error message
-                                    Toast.makeText(this, "Error casting vote: $it", Toast.LENGTH_SHORT).show()
-                                }
-                        }
+                        // Add the vote to the Firestore database
+                        FirebaseFirestore.getInstance().collection("votes").add(vote!!)
+                            .addOnSuccessListener {
+                        // If the vote is successfully added, show a success message and finish the activity
+                                Toast.makeText(this, "Vote submitted successfully.", Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
+                            .addOnFailureListener {
+                            // If there is an error adding the vote, show an error message
+                                Toast.makeText(this, "Error submitting vote: $it", Toast.LENGTH_SHORT).show()
+                            }
                     } else {
-                        // If the user has already voted, show an error message
+// If the user has already voted, show an error message
                         Toast.makeText(this, "You have already voted in this campaign.", Toast.LENGTH_SHORT).show()
                     }
                 }
-                .addOnFailureListener {
-                    // If there is an error querying the votes, show an error message
-                    Toast.makeText(this, "Error checking vote history: $it", Toast.LENGTH_SHORT).show()
-                }
+
+
         }
 
 

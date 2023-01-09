@@ -4,23 +4,23 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Vote(
-    val userUId: String,
+    val userId: String,
     val campaignId: String,
-    val candidate: String,
-    val voteNumber: Int
+    val candidateId: String,
+    val candidateName: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readInt()
+        parcel.readString()!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(userUId)
+        parcel.writeString(userId)
         parcel.writeString(campaignId)
-        parcel.writeString(candidate)
-        parcel.writeInt(voteNumber)
+        parcel.writeString(candidateId)
+        parcel.writeString(candidateName)
     }
 
     override fun describeContents(): Int {
