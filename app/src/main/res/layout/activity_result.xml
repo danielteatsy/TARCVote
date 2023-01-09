@@ -82,6 +82,14 @@
                 android:layout_height="wrap_content"
                 android:max="100" />
 
+            <TextView
+                android:id="@+id/winner_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="The winner is:"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

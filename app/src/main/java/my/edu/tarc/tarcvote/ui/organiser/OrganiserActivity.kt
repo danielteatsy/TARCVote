@@ -23,6 +23,7 @@ import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
 import my.edu.tarc.tarcvote.ui.LoginActivity
 import my.edu.tarc.tarcvote.ui.ResultActivity
+import my.edu.tarc.tarcvote.ui.ResultListActivity
 
 
 class OrganiserActivity : AppCompatActivity() {
@@ -64,7 +65,7 @@ class OrganiserActivity : AppCompatActivity() {
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.nav_poll -> intent.setClass(this@OrganiserActivity, OrganiserActivity::class.java)
-                    R.id.nav_results -> intent.setClass(this@OrganiserActivity, ResultActivity::class.java)
+                    R.id.nav_results -> intent.setClass(this@OrganiserActivity, ResultListActivity::class.java)
                     R.id.action_logout -> {
                         val preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
                         preferences.edit().clear().apply()
