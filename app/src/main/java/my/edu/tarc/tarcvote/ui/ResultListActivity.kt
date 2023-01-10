@@ -25,6 +25,8 @@ class ResultListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result_list)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = "Result list"
 
         campaignRecyclerView = findViewById(R.id.resultListView)
         campaignRecyclerView.layoutManager = LinearLayoutManager(this)

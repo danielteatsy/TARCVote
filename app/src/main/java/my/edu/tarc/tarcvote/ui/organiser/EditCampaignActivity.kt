@@ -1,5 +1,6 @@
 package my.edu.tarc.tarcvote.ui.organiser
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -15,7 +16,8 @@ import java.util.*
 
 class EditCampaignActivity : AppCompatActivity() {
 
-    private lateinit var datetimeTextView: TextView
+    private lateinit var startDateTimeTextView: TextView
+    private lateinit var endDateTimeTextView: TextView
     private lateinit var titleEditText: TextInputEditText
     private lateinit var db: FirebaseFirestore
 
@@ -28,6 +30,7 @@ class EditCampaignActivity : AppCompatActivity() {
 
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_campaign)
@@ -36,7 +39,8 @@ class EditCampaignActivity : AppCompatActivity() {
 
 
         titleEditText = findViewById(R.id.textTitle)
-        datetimeTextView = findViewById(R.id.DateTime)
+        startDateTimeTextView = findViewById(R.id.start_date_time)
+        endDateTimeTextView = findViewById(R.id.end_date_time)
         delCampaign = findViewById(R.id.btndelCampaign)
         editCampaign = findViewById(R.id.btnSaveCampaign)
         db = FirebaseFirestore.getInstance()
@@ -51,7 +55,8 @@ class EditCampaignActivity : AppCompatActivity() {
 
         // Update the views with the data from the Campaign object
         if (campaign != null) {
-            datetimeTextView.text = campaign.endDateTime.toDate().toString()
+            startDateTimeTextView.text = campaign.startDateTime.toDate().toString()
+            endDateTimeTextView.text = campaign.endDateTime.toDate().toString()
             titleEditText.setText(campaign.title)
             candidate1Text.setText(campaign.candidate1.name)
             candidate2Text.setText(campaign.candidate2.name)
@@ -96,20 +101,20 @@ class EditCampaignActivity : AppCompatActivity() {
 
         // Set up the click listener for the delete button
         delCampaign.setOnClickListener {
-// Confirm the delete action with the user
+        // Confirm the delete action with the user
             AlertDialog.Builder(this)
                 .setTitle("Delete Campaign")
                 .setMessage("Are you sure you want to delete this campaign?")
                 .setPositiveButton("Yes") { _, _ ->
-// Delete the campaign from the database
+        // Delete the campaign from the database
                     db.collection("campaigns").document(campaign.toString())
                         .delete()
                         .addOnSuccessListener {
-// Delete successful, show a message to the user
+        // Delete successful, show a message to the user
                             Toast.makeText(this, "Campaign deleted", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
-// Delete failed, show an error message
+        // Delete failed, show an error message
                             Toast.makeText(this, "Error deleting campaign: $it", Toast.LENGTH_SHORT).show()
                         }
 

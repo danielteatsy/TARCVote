@@ -20,7 +20,8 @@ import java.util.*
 
 class CreateCampaignActivity : AppCompatActivity() {
 
-    private lateinit var datetimeTextView: TextView
+    private lateinit var startDateTimeTextView: TextView
+    private lateinit var endDateTimeTextView: TextView
     private lateinit var titleEditText: TextInputEditText
     private lateinit var db: FirebaseFirestore
 
@@ -37,7 +38,8 @@ class CreateCampaignActivity : AppCompatActivity() {
         supportActionBar!!.title = "Create New Campaign"
 
         titleEditText = findViewById(R.id.textTitle)
-        datetimeTextView = findViewById(R.id.DateTime)
+        startDateTimeTextView = findViewById(R.id.start_date_time)
+        endDateTimeTextView = findViewById(R.id.end_date_time)
         addCampaignButton = findViewById(R.id.btnAddCampaign)
 
         candidate1Text = findViewById(R.id.textCandidate1)
@@ -49,48 +51,62 @@ class CreateCampaignActivity : AppCompatActivity() {
 
         addCampaignButton.setOnClickListener {
             val title = titleEditText.text.toString().trim()
-            val datetime = datetimeTextView.text.toString().trim()
+            val startDateTime = startDateTimeTextView.text.toString().trim()
+            val endDateTime = endDateTimeTextView.text.toString().trim()
             val candidate1Name = candidate1Text.text.toString().trim()
             val candidate2Name = candidate2Text.text.toString().trim()
             val candidate3Name = candidate3Text.text.toString().trim()
 
-            if (title.isEmpty() || datetime.isEmpty() || candidate1Name.isEmpty() || candidate2Name.isEmpty() || candidate3Name.isEmpty()) {
-                // Display warning message or toast
+            if (title.isEmpty() || startDateTime.isEmpty() || endDateTime.isEmpty() || candidate1Name.isEmpty() || candidate2Name.isEmpty() || candidate3Name.isEmpty()) {
+                Toast.makeText(this@CreateCampaignActivity, "Please fill up empty fields", Toast.LENGTH_SHORT).show()
+            } else if (!isEndTimeValid(endDateTime)) {
+                // Show error message or toast indicating that end time must be after start time
+                Toast.makeText(this@CreateCampaignActivity, "The end time must be after start time", Toast.LENGTH_SHORT).show()
             } else {
-                // Create a new Campaign object
                 val campaign = Campaign(
                     id = UUID.randomUUID().toString(),
                     title = title,
+                    startDateTime = Timestamp.now(),
                     endDateTime = Timestamp.now(),
-                    candidate1 = Candidate(id = UUID.randomUUID().toString(), name = candidate1Name),
-                    candidate2 = Candidate(id = UUID.randomUUID().toString(), name = candidate2Name),
+                    candidate1 = Candidate(
+                        id = UUID.randomUUID().toString(),
+                        name = candidate1Name
+                    ),
+                    candidate2 = Candidate(
+                        id = UUID.randomUUID().toString(),
+                        name = candidate2Name
+                    ),
                     candidate3 = Candidate(id = UUID.randomUUID().toString(), name = candidate3Name)
                 )
                 // Add the campaign to the Firestore database
                 db.collection("campaigns")
                     .add(campaign)
                     .addOnSuccessListener { documentReference ->
-                        Log.d(TAG, "Campaign successfully added to Firestore with ID: ${documentReference.id}"
+                        Log.d(
+                            TAG,
+                            "Campaign successfully added to Firestore with ID: ${documentReference.id}"
                         )
                     }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error adding campaign to Firestore", e)
                     }
+                }
             }
+            //Create start date and time using Widget calendar
+            startDateTimeTextView = findViewById(R.id.start_date_time)
+            startDateTimeTextView.setOnClickListener {
+            showStartDateTimeDialog()
         }
 
-        //Create DateTime using Widget calendar
-        datetimeTextView = findViewById(R.id.DateTime)
-        datetimeTextView.setOnClickListener {
-            showDateTimeDialog()
+        //Create end date and time using Widget calendar
+        endDateTimeTextView = findViewById(R.id.end_date_time)
+        endDateTimeTextView.setOnClickListener {
+            showEndDateTimeDialog()
         }
-
 
     }
 
-
-
-    private fun showDateTimeDialog() {
+    private fun showEndDateTimeDialog() {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             this,
@@ -98,7 +114,7 @@ class CreateCampaignActivity : AppCompatActivity() {
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                showTimeDialog(calendar)
+                showStartTimeDialog(calendar)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -107,7 +123,7 @@ class CreateCampaignActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun showTimeDialog(calendar: Calendar) {
+    private fun showStartTimeDialog(calendar: Calendar) {
         val timePickerDialog = TimePickerDialog(
             this,
             { _, hourOfDay, minute ->
@@ -116,17 +132,71 @@ class CreateCampaignActivity : AppCompatActivity() {
 
                 // Format the date and time and set it to the TextView
                 val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-                datetimeTextView.text = formatter.format(calendar.time)
-            },calendar.get(Calendar.HOUR_OF_DAY),
+                startDateTimeTextView.text = formatter.format(calendar.time)
+            },
+            calendar.get(Calendar.HOUR_OF_DAY),
             calendar.get(Calendar.MINUTE),
-            true
+            false
         )
         timePickerDialog.show()
+
+    }
+
+    private fun showStartDateTimeDialog() {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                showEndTimeDialog(calendar)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
+
+    private fun showEndTimeDialog(calendar: Calendar) {
+        val timePickerDialog = TimePickerDialog(
+            this,
+            { _, hourOfDay, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+
+                // Format the date and time and set it to the TextView
+                val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                endDateTimeTextView.text = formatter.format(calendar.time)
+            },
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
+            false
+        )
+        timePickerDialog.show()
+
+    }
+
+    // Time limiter function
+    private fun isEndTimeValid(endDateTime: String): Boolean {
+        // Check if the end date and time is after the start date and time
+        val endDateTimeCalendar = Calendar.getInstance()
+        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        endDateTimeCalendar.time = formatter.parse(endDateTime) as Date
+        val startDateTimeCalendar = Calendar.getInstance()
+        startDateTimeCalendar.time = formatter.parse(startDateTimeTextView.text.toString()) as Date
+
+        return endDateTimeCalendar.after(startDateTimeCalendar)
     }
 
 
-
-
-
 }
+
+
+
+
+
+
+
 
