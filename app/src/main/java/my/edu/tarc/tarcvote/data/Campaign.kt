@@ -3,6 +3,7 @@ package my.edu.tarc.tarcvote.data
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.Timestamp
+import java.util.*
 
 data class Campaign(
     val id: String,
@@ -13,6 +14,8 @@ data class Campaign(
     val candidate2: Candidate,
     val candidate3: Candidate
 ) : Parcelable {
+
+    constructor() : this("", "", Timestamp(Date()), Timestamp(Date()), Candidate(), Candidate(), Candidate())
 
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

@@ -1,5 +1,6 @@
 package my.edu.tarc.tarcvote.ui.organiser
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
@@ -31,6 +32,7 @@ class CreateCampaignActivity : AppCompatActivity() {
     private lateinit var addCampaignButton : Button
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_campaign)
@@ -59,15 +61,19 @@ class CreateCampaignActivity : AppCompatActivity() {
 
             if (title.isEmpty() || startDateTime.isEmpty() || endDateTime.isEmpty() || candidate1Name.isEmpty() || candidate2Name.isEmpty() || candidate3Name.isEmpty()) {
                 Toast.makeText(this@CreateCampaignActivity, "Please fill up empty fields", Toast.LENGTH_SHORT).show()
-            } else if (!isEndTimeValid(endDateTime)) {
+            } else if (!isEndTimeValid(startDateTime, endDateTime)) {
                 // Show error message or toast indicating that end time must be after start time
                 Toast.makeText(this@CreateCampaignActivity, "The end time must be after start time", Toast.LENGTH_SHORT).show()
             } else {
+                val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+                format.timeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur")
+                val startTimestamp = Timestamp(format.parse(startDateTime))
+                val endTimestamp = Timestamp(format.parse(endDateTime))
                 val campaign = Campaign(
                     id = UUID.randomUUID().toString(),
                     title = title,
-                    startDateTime = Timestamp.now(),
-                    endDateTime = Timestamp.now(),
+                    startDateTime = startTimestamp,
+                    endDateTime = endTimestamp,
                     candidate1 = Candidate(
                         id = UUID.randomUUID().toString(),
                         name = candidate1Name
@@ -86,112 +92,121 @@ class CreateCampaignActivity : AppCompatActivity() {
                             TAG,
                             "Campaign successfully added to Firestore with ID: ${documentReference.id}"
                         )
+                // Show success message or toast indicating that the campaign was successfully added
+                        Toast.makeText(this@CreateCampaignActivity, "Campaign successfully added", Toast.LENGTH_SHORT).show()
+                // Clear the input fields
+                        titleEditText.setText("")
+                        startDateTimeTextView.text = ""
+                        endDateTimeTextView.text = ""
+                        candidate1Text.setText("")
+                        candidate2Text.setText("")
+                        candidate3Text.setText("")
+                    // Navigate back to the previous activity
+                        finish()
                     }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error adding campaign to Firestore", e)
+                        // Show error message or toast indicating that there was an error adding the campaign
+                        Toast.makeText(this@CreateCampaignActivity, "Error adding campaign", Toast.LENGTH_SHORT).show()
                     }
-                }
             }
             //Create start date and time using Widget calendar
             startDateTimeTextView = findViewById(R.id.start_date_time)
             startDateTimeTextView.setOnClickListener {
-            showStartDateTimeDialog()
-        }
+                showStartDateTimeDialog()
+            }
 
-        //Create end date and time using Widget calendar
-        endDateTimeTextView = findViewById(R.id.end_date_time)
-        endDateTimeTextView.setOnClickListener {
-            showEndDateTimeDialog()
+            //Create end date and time using...
+            endDateTimeTextView = findViewById(R.id.end_date_time)
+            endDateTimeTextView.setOnClickListener {
+                showEndDateTimeDialog()
+            }
         }
-
+    }
+    private fun showStartDateTimeDialog() {
+        // Code to show the DatePicker and TimePicker dialogs
+        val calendar = Calendar.getInstance()
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, day)
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                startDateTimeTextView.text =
+                    SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(calendar.time)
+            }
+            TimePickerDialog(
+                this@CreateCampaignActivity,
+                timeSetListener,
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+            ).show()
+        }
+        DatePickerDialog(
+            this@CreateCampaignActivity,
+            dateSetListener,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 
     private fun showEndDateTimeDialog() {
+        // Code to show the DatePicker and TimePicker dialogs
         val calendar = Calendar.getInstance()
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                showStartTimeDialog(calendar)
-            },
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, day)
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                endDateTimeTextView.text =
+                    SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(calendar.time)
+            }
+            TimePickerDialog(
+                this@CreateCampaignActivity,
+                timeSetListener,
+                calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),
+                true
+            ).show()
+        }
+        DatePickerDialog(
+            this@CreateCampaignActivity,
+            dateSetListener,
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
+        ).show()
     }
 
-    private fun showStartTimeDialog(calendar: Calendar) {
-        val timePickerDialog = TimePickerDialog(
-            this,
-            { _, hourOfDay, minute ->
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                calendar.set(Calendar.MINUTE, minute)
-
-                // Format the date and time and set it to the TextView
-                val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-                startDateTimeTextView.text = formatter.format(calendar.time)
-            },
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
-            false
-        )
-        timePickerDialog.show()
-
+    private fun isEndTimeValid(startDateTime: String, endDateTime: String): Boolean {
+        // Code to check if the end time is valid (i.e. after the start time)
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val startDate = sdf.parse(startDateTime)
+        val endDate = sdf.parse(endDateTime)
+        return endDate.after(startDate)
     }
 
-    private fun showStartDateTimeDialog() {
-        val calendar = Calendar.getInstance()
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                showEndTimeDialog(calendar)
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
+    companion object {
+        private const val TAG = "CreateCampaignActivity"
     }
-
-    private fun showEndTimeDialog(calendar: Calendar) {
-        val timePickerDialog = TimePickerDialog(
-            this,
-            { _, hourOfDay, minute ->
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                calendar.set(Calendar.MINUTE, minute)
-
-                // Format the date and time and set it to the TextView
-                val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-                endDateTimeTextView.text = formatter.format(calendar.time)
-            },
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
-            false
-        )
-        timePickerDialog.show()
-
-    }
-
-    // Time limiter function
-    private fun isEndTimeValid(endDateTime: String): Boolean {
-        // Check if the end date and time is after the start date and time
-        val endDateTimeCalendar = Calendar.getInstance()
-        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        endDateTimeCalendar.time = formatter.parse(endDateTime) as Date
-        val startDateTimeCalendar = Calendar.getInstance()
-        startDateTimeCalendar.time = formatter.parse(startDateTimeTextView.text.toString()) as Date
-
-        return endDateTimeCalendar.after(startDateTimeCalendar)
-    }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

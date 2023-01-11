@@ -120,9 +120,18 @@ class VoteActivity : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error checking vote history!", Toast.LENGTH_SHORT).show()
                 }
+        }
+    }
+    private fun isVotingTimeValid(): Boolean {
+        val now = Date()
+        val endTime = campaign.endDateTime.toDate()
+        return now.before(endTime)
 
 
-            /* // Get the current user's uid
+    }
+}
+
+/* // Get the current user's uid
              val currentUserUid = FirebaseAuth.getInstance().currentUser!!.uid
 
              // Check if the user has already voted
@@ -169,20 +178,5 @@ class VoteActivity : AppCompatActivity() {
                          Toast.makeText(this, "You have already voted in this campaign.", Toast.LENGTH_SHORT).show()
                      }
                  }*/
-
-
-        }
-    }
-    private fun isVotingTimeValid(): Boolean {
-        val now = Date()
-        val endTime = campaign.endDateTime.toDate()
-        return now.before(endTime)
-
-
-
-
-    }
-}
-
 
 

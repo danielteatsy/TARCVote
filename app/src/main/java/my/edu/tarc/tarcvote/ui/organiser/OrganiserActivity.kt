@@ -146,11 +146,6 @@ class OrganiserActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)){
             true
