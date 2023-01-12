@@ -141,52 +141,6 @@ class VoteActivity : AppCompatActivity() {
     }
 }
 
-/* // Get the current user's uid
-             val currentUserUid = FirebaseAuth.getInstance().currentUser!!.uid
 
-             // Check if the user has already voted
-             FirebaseFirestore.getInstance().collection("votes")
-                 .whereEqualTo("userId", currentUserUid)
-                 .whereEqualTo("campaignId", campaign.id)
-                 .get()
-                 .addOnSuccessListener { querySnapshot ->
-                     if (querySnapshot.isEmpty) {
-                         //If the user has not already voted, allow them to vote
-                         val selectedCandidate: Candidate? = when {
-                             candidate1Select.isChecked -> campaign.candidate1
-                             candidate2Select.isChecked -> campaign.candidate2
-                             candidate3Select.isChecked -> campaign.candidate3
-                             else -> {
-                             // If no candidate is selected, show an error message
-                                 Toast.makeText(this, "Please select a candidate.", Toast.LENGTH_SHORT).show()
-                                 return@addOnSuccessListener
-                             }
-                         }
-                         val vote = selectedCandidate?.let {
-                             it.name?.let { it1 ->
-                                 Vote(
-                                     currentUserUid,
-                                     campaign.id,
-                                     it.id,
-                                     it1
-                                 )
-                             }
-                         }
-                         // Add the vote to the Firestore database
-                         FirebaseFirestore.getInstance().collection("votes").add(vote!!)
-                             .addOnSuccessListener {
-                         // If the vote is successfully added, show a success message and finish the activity
-                                 Toast.makeText(this, "Vote submitted successfully.", Toast.LENGTH_SHORT).show()
-                                 finish()
-                             }
-                             .addOnFailureListener {
-                             // If there is an error adding the vote, show an error message
-                                 Toast.makeText(this, "Error submitting vote: $it", Toast.LENGTH_SHORT).show()
-                             }
-                     } else {
-                     // If the user has already voted, show an error message
-                         Toast.makeText(this, "You have already voted in this campaign.", Toast.LENGTH_SHORT).show()
-                     }
-                 }*/
 
 
