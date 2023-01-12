@@ -65,6 +65,17 @@ class VoteActivity : AppCompatActivity() {
         candidate2Select.text = campaign.candidate2.name
         candidate3Select.text = campaign.candidate3.name
 
+        // set radio button selected listener
+        candidate1Select.setOnClickListener {
+            selectedCandidate = campaign.candidate1.id
+        }
+        candidate2Select.setOnClickListener {
+            selectedCandidate = campaign.candidate2.id
+        }
+        candidate3Select.setOnClickListener {
+            selectedCandidate = campaign.candidate3.id
+        }
+
 
 
         submit.setOnClickListener {
@@ -86,20 +97,20 @@ class VoteActivity : AppCompatActivity() {
 
             // check if user has already voted
             db.collection("votes")
-                .whereEqualTo("userId", user)
+                .whereEqualTo("voterId", user)
                 .get()
                 .addOnSuccessListener { snapshot ->
                     if (snapshot.isEmpty) {
-                        // create a new Vote object
+// create a new Vote object
                         val vote = Vote(
-                            id = "", // Unique ID for this vote (you can use Firestore's auto-generated ID)
+                            id = UUID.randomUUID().toString(), // Unique ID for this vote
                             campaignId = campaign.id,
                             candidateId = selectedCandidate!!,
                             voterId = user, // User's ID
                             timestamp = Timestamp.now() // Timestamp for when the vote was cast
                         )
-                        // check if voting time is still valid
-                        if (!isVotingTimeValid()) {
+                        //check if voting time is still valid
+                        if(!isVotingTimeValid()){
                             Toast.makeText(this, "Voting time has expired!", Toast.LENGTH_SHORT).show()
                             return@addOnSuccessListener
                         }
@@ -118,16 +129,15 @@ class VoteActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error checking vote history!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Error checking for existing vote!", Toast.LENGTH_SHORT).show()
                 }
         }
+
     }
     private fun isVotingTimeValid(): Boolean {
-        val now = Date()
-        val endTime = campaign.endDateTime.toDate()
-        return now.before(endTime)
-
-
+        val currentTime = System.currentTimeMillis()
+        val endTime = campaign.endDateTime.seconds * 1000
+        return currentTime < endTime
     }
 }
 
