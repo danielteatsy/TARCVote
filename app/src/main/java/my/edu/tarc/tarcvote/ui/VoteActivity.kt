@@ -1,5 +1,6 @@
 package my.edu.tarc.tarcvote.ui
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
-import my.edu.tarc.tarcvote.data.Candidate
 import my.edu.tarc.tarcvote.data.Vote
 import java.util.*
 
@@ -21,7 +21,8 @@ class VoteActivity : AppCompatActivity() {
     private lateinit var campaign: Campaign
 
 
-    private lateinit var datetimeTextView: TextView
+    private lateinit var startDatetimeTextView: TextView
+    private lateinit var endDatetimeTextView: TextView
     private lateinit var titleEditText: TextView
 
     private lateinit var candidate1Select: RadioButton
@@ -31,6 +32,7 @@ class VoteActivity : AppCompatActivity() {
     private lateinit var submit: Button
 
     private var selectedCandidate: String? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +50,8 @@ class VoteActivity : AppCompatActivity() {
 
 
         titleEditText = findViewById(R.id.textPollTitle)
-        datetimeTextView = findViewById(R.id.textPollTime)
+        startDatetimeTextView = findViewById(R.id.textStartPollTime)
+        endDatetimeTextView = findViewById(R.id.textEndPollTime)
         candidate1Select = findViewById(R.id.radioCandidate1)
         candidate2Select = findViewById(R.id.radioCandidate2)
         candidate3Select = findViewById(R.id.radioCandidate3)
@@ -58,7 +61,8 @@ class VoteActivity : AppCompatActivity() {
 
         intent.putExtra("CAMPAIGN_ID", campaign.id)
         titleEditText.setText(campaign.title)
-        datetimeTextView.text = campaign.endDateTime.toDate().toString()
+        startDatetimeTextView.text = campaign.startDateTime.toDate().toString()
+        endDatetimeTextView.text = campaign.endDateTime.toDate().toString()
 
         // Set the text of the RadioButtons to the names of the candidates
         candidate1Select.text = campaign.candidate1.name
@@ -101,7 +105,7 @@ class VoteActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { snapshot ->
                     if (snapshot.isEmpty) {
-// create a new Vote object
+                        // create a new Vote object
                         val vote = Vote(
                             id = UUID.randomUUID().toString(), // Unique ID for this vote
                             campaignId = campaign.id,

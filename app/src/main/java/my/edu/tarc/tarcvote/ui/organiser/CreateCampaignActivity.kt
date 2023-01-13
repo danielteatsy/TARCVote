@@ -1,9 +1,8 @@
 package my.edu.tarc.tarcvote.ui.organiser
 
-import android.annotation.SuppressLint
+
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -14,8 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
 import my.edu.tarc.tarcvote.data.Candidate
-import java.io.ByteArrayOutputStream
-import java.nio.file.attribute.FileTime.fromMillis
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -66,9 +63,8 @@ class CreateCampaignActivity : AppCompatActivity() {
                 Toast.makeText(this@CreateCampaignActivity, "The end time must be after start time", Toast.LENGTH_SHORT).show()
             } else {
                 val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
-                format.timeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur")
-                val startTimestamp = Timestamp(format.parse(startDateTime))
-                val endTimestamp = Timestamp(format.parse(endDateTime))
+                val startTimestamp = Timestamp(format.parse(startDateTime)!!)
+                val endTimestamp = Timestamp(format.parse(endDateTime)!!)
                 val campaign = Campaign(
                     id = UUID.randomUUID().toString(),
                     title = title,
@@ -88,6 +84,7 @@ class CreateCampaignActivity : AppCompatActivity() {
                 db.collection("campaigns")
                     .add(campaign)
                     .addOnSuccessListener { documentReference ->
+                        campaign.id = documentReference.id
                         Log.d(
                             TAG,
                             "Campaign successfully added to Firestore with ID: ${documentReference.id}"
@@ -110,14 +107,11 @@ class CreateCampaignActivity : AppCompatActivity() {
                         Toast.makeText(this@CreateCampaignActivity, "Error adding campaign", Toast.LENGTH_SHORT).show()
                     }
             }
-            //Create start date and time using Widget calendar
-            startDateTimeTextView = findViewById(R.id.start_date_time)
+
             startDateTimeTextView.setOnClickListener {
                 showStartDateTimeDialog()
             }
 
-            //Create end date and time using...
-            endDateTimeTextView = findViewById(R.id.end_date_time)
             endDateTimeTextView.setOnClickListener {
                 showEndDateTimeDialog()
             }
@@ -187,7 +181,7 @@ class CreateCampaignActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val startDate = sdf.parse(startDateTime)
         val endDate = sdf.parse(endDateTime)
-        return endDate.after(startDate)
+        return endDate?.after(startDate) ?: false
     }
 
     companion object {

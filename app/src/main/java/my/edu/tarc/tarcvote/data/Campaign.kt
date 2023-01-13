@@ -6,7 +6,7 @@ import com.google.firebase.Timestamp
 import java.util.*
 
 data class Campaign(
-    val id: String,
+    var id: String,
     var title: String,
     val startDateTime: Timestamp,
     val endDateTime: Timestamp,
