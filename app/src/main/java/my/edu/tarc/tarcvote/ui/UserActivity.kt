@@ -14,7 +14,7 @@ class UserActivity : AppCompatActivity() {
     private lateinit var logout: CardView
     private lateinit var voter: CardView
     private lateinit var Result:CardView
-    private lateinit var Profile: CardView
+
     private lateinit var Name: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class UserActivity : AppCompatActivity() {
         voter = findViewById(R.id.UserVote)
         Name = findViewById(R.id.UserTextName)
         Result = findViewById(R.id.UserResult)
-        Profile = findViewById(R.id.userProfile)
+
 
         logout.setOnClickListener {
             intent.setClass(this, LoginActivity::class.java)
@@ -63,9 +63,6 @@ class UserActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        Profile.setOnClickListener{
-            val intent = Intent(this@UserActivity, ProfileActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 }
