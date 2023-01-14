@@ -34,7 +34,6 @@ class VoteListActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
 
-        //
 
         db.collection("campaigns")
             .addSnapshotListener { snapshot, exception ->

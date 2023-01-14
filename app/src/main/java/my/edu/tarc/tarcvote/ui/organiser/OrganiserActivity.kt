@@ -1,6 +1,7 @@
 package my.edu.tarc.tarcvote.ui.organiser
 
 
+
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
@@ -24,7 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
 import my.edu.tarc.tarcvote.ui.LoginActivity
-import my.edu.tarc.tarcvote.ui.ResultActivity
 import my.edu.tarc.tarcvote.ui.ResultListActivity
 
 
@@ -36,6 +36,7 @@ class OrganiserActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
