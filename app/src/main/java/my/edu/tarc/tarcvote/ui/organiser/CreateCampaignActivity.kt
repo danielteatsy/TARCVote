@@ -113,13 +113,14 @@ class CreateCampaignActivity : AppCompatActivity() {
                     }
             }
 
-            startDateTimeTextView.setOnClickListener {
-                showStartDateTimeDialog()
-            }
+        }
 
-            endDateTimeTextView.setOnClickListener {
-                showEndDateTimeDialog()
-            }
+        startDateTimeTextView.setOnClickListener {
+            showStartDateTimeDialog()
+        }
+
+        endDateTimeTextView.setOnClickListener {
+            showEndDateTimeDialog()
         }
     }
     private fun showStartDateTimeDialog() {

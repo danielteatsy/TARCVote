@@ -30,7 +30,7 @@ import my.edu.tarc.tarcvote.ui.ResultListActivity
 
 class OrganiserActivity : AppCompatActivity() {
 
-    lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var toggle: ActionBarDrawerToggle
 
     private lateinit var campaignRecyclerView: RecyclerView
     private lateinit var db: FirebaseFirestore
@@ -55,11 +55,11 @@ class OrganiserActivity : AppCompatActivity() {
         val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.navHead)
         toggle = ActionBarDrawerToggle(
-                this@OrganiserActivity,
-                drawerLayout,
-                R.string.open,
-                R.string.close
-            )
+            this@OrganiserActivity,
+            drawerLayout,
+            R.string.open,
+            R.string.close
+        )
 
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
