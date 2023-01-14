@@ -31,14 +31,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.ProfileActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.UserActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.ResultActivity"
             android:exported="false"
             android:parentActivityName=".ui.VoteListActivity">

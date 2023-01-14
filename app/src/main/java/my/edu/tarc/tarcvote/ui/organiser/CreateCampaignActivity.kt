@@ -28,6 +28,8 @@ class CreateCampaignActivity : AppCompatActivity() {
     private lateinit var candidate3Text: TextInputEditText
     private lateinit var addCampaignButton : Button
 
+    private var campaignId: String? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +49,11 @@ class CreateCampaignActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
 
+        // Retrieve campaign ID from Intent
+        campaignId = intent.getStringExtra("campaignId")
+        if (campaignId.isNullOrEmpty()) {
+            campaignId = UUID.randomUUID().toString()
+        }
 
         addCampaignButton.setOnClickListener {
             val title = titleEditText.text.toString().trim()
@@ -65,8 +72,12 @@ class CreateCampaignActivity : AppCompatActivity() {
                 val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
                 val startTimestamp = Timestamp(format.parse(startDateTime)!!)
                 val endTimestamp = Timestamp(format.parse(endDateTime)!!)
+                campaignId = intent.getStringExtra("campaignId")
+                if (campaignId.isNullOrEmpty()) {
+                    campaignId = UUID.randomUUID().toString()
+                }
                 val campaign = Campaign(
-                    id = UUID.randomUUID().toString(),
+                    id = campaignId!!,
                     title = title,
                     startDateTime = startTimestamp,
                     endDateTime = endTimestamp,
@@ -75,23 +86,18 @@ class CreateCampaignActivity : AppCompatActivity() {
                         name = candidate1Name
                     ),
                     candidate2 = Candidate(
-                        id = UUID.randomUUID().toString(),
+                        id =UUID.randomUUID().toString(),
                         name = candidate2Name
                     ),
                     candidate3 = Candidate(id = UUID.randomUUID().toString(), name = candidate3Name)
                 )
-                // Add the campaign to the Firestore database
-                db.collection("campaigns")
-                    .add(campaign)
-                    .addOnSuccessListener { documentReference ->
-                        campaign.id = documentReference.id
-                        Log.d(
-                            TAG,
-                            "Campaign successfully added to Firestore with ID: ${documentReference.id}"
-                        )
-                // Show success message or toast indicating that the campaign was successfully added
+
+
+                db.collection("campaigns").document(campaignId!!).set(campaign)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "Campaign successfully added to Firestore with ID: $campaignId")
                         Toast.makeText(this@CreateCampaignActivity, "Campaign successfully added", Toast.LENGTH_SHORT).show()
-                // Clear the input fields
+                        // Clear the input fields
                         titleEditText.setText("")
                         startDateTimeTextView.text = ""
                         endDateTimeTextView.text = ""
@@ -103,7 +109,6 @@ class CreateCampaignActivity : AppCompatActivity() {
                     }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error adding campaign to Firestore", e)
-                        // Show error message or toast indicating that there was an error adding the campaign
                         Toast.makeText(this@CreateCampaignActivity, "Error adding campaign", Toast.LENGTH_SHORT).show()
                     }
             }
