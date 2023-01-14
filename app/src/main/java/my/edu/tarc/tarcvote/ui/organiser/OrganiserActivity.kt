@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
@@ -32,7 +34,8 @@ class OrganiserActivity : AppCompatActivity() {
 
     private lateinit var campaignRecyclerView: RecyclerView
     private lateinit var db: FirebaseFirestore
-
+    private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,15 +45,15 @@ class OrganiserActivity : AppCompatActivity() {
         campaignRecyclerView.layoutManager = LinearLayoutManager(this)
 
         // Get a reference to the Firestore database
+        auth = FirebaseAuth.getInstance()
+        currentUser = auth.currentUser!!
         db = FirebaseFirestore.getInstance()
-
 
 
         //Navigation Drawer
         val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.navHead)
-
-            toggle = ActionBarDrawerToggle(
+        toggle = ActionBarDrawerToggle(
                 this@OrganiserActivity,
                 drawerLayout,
                 R.string.open,
@@ -59,6 +62,21 @@ class OrganiserActivity : AppCompatActivity() {
 
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
+
+        val headerView: View = navView.getHeaderView(0)
+        val navName: TextView = headerView.findViewById(R.id.adminName)
+        val navEmail: TextView = headerView.findViewById(R.id.adminEmail)
+
+        db.collection("users").document(currentUser?.uid.toString()).get()
+            .addOnSuccessListener { document ->
+                val name = document.get("name").toString()
+                val email = document.get("email").toString()
+                navName.text = name
+                navEmail.text = email
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting user data from Firestore", exception)
+            }
 
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -104,6 +122,8 @@ class OrganiserActivity : AppCompatActivity() {
                     campaignRecyclerView.adapter = CampaignAdapter(campaigns as List<Campaign>)
                 }
             }
+
+
 
 
         }
