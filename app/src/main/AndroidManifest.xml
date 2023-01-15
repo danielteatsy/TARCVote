@@ -19,7 +19,7 @@
             android:name=".ui.organiser.OrganiserResult"
             android:exported="false" />
         <activity
-            android:name=".ui.organiser.OrganizerResultList"
+            android:name=".ui.organiser.OrganiserResultList"
             android:exported="false" />
         <activity
             android:name=".ui.ResultListActivity"
