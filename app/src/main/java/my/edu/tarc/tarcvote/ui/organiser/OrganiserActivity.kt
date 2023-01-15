@@ -25,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
 import my.edu.tarc.tarcvote.ui.LoginActivity
-import my.edu.tarc.tarcvote.ui.ResultListActivity
+
 
 
 class OrganiserActivity : AppCompatActivity() {

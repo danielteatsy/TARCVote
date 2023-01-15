@@ -61,8 +61,10 @@ class VoteActivity : AppCompatActivity() {
 
         intent.putExtra("CAMPAIGN_ID", campaign.id)
         titleEditText.setText(campaign.title)
-        startDatetimeTextView.text = campaign.startDateTime.toDate().toString()
-        endDatetimeTextView.text = campaign.endDateTime.toDate().toString()
+
+
+        startDatetimeTextView.text = "Start Date and Time : ${campaign.startDateTime.toDate().toString()}"
+        endDatetimeTextView.text = "End Date and Time : ${campaign.endDateTime.toDate().toString()}"
 
         // Set the text of the RadioButtons to the names of the candidates
         candidate1Select.text = campaign.candidate1.name

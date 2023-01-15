@@ -3,9 +3,7 @@ package my.edu.tarc.tarcvote.ui.organiser
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -16,7 +14,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
-import my.edu.tarc.tarcvote.data.Candidate
 import java.text.SimpleDateFormat
 import java.util.*
 
