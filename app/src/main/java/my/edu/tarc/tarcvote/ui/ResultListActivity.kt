@@ -1,6 +1,6 @@
 package my.edu.tarc.tarcvote.ui
 
-import android.annotation.SuppressLint
+
 import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
