@@ -14,6 +14,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import my.edu.tarc.tarcvote.R
 import my.edu.tarc.tarcvote.data.Campaign
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -102,12 +103,77 @@ class EditCampaignActivity : AppCompatActivity() {
 
     }
 
+    private fun updateCampaign() {
+        // Update the campaign's properties with the new data entered by the user
+        campaign.title = titleEditText.text.toString()
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+        campaign.startDateTime = Timestamp(format.parse(startDateTimeTextView.text.toString())!!)
+        campaign.endDateTime = Timestamp(format.parse(endDateTimeTextView.text.toString())!!)
+        campaign.candidate1.name = candidate1Text.text.toString()
+        campaign.candidate2.name = candidate2Text.text.toString()
+        campaign.candidate3.name = candidate3Text.text.toString()
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirm Update")
+        builder.setMessage("Are you sure you want to update this campaign?")
+        builder.setPositiveButton("Update") { _, _ ->
+            // Update the campaign in the Firebase Firestore database
+            val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+            val startTimestamp = Timestamp(format.parse(startDateTimeTextView.text.toString())!!)
+            val endTimestamp = Timestamp(format.parse(endDateTimeTextView.text.toString())!!)
+            campaign.startDateTime = startTimestamp
+            campaign.endDateTime = endTimestamp
+            db.collection("campaigns").document(campaign.id).set(campaign)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Campaign updated successfully", Toast.LENGTH_SHORT)
+                        .show()
+                    finish()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Failed to update campaign", Toast.LENGTH_SHORT).show()
+                }
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun deleteCampaign() {
+        // Show confirmation dialog
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Are you sure you want to delete this campaign?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { _, _ ->
+                // Delete the campaign from the Firebase Firestore database
+                db.collection("campaigns").document(campaign.id).delete()
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Campaign deleted successfully", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Failed to delete campaign", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.cancel()
+            }
+        val alert = dialogBuilder.create()
+        alert.setTitle("Confirm")
+        alert.show()
+    }
+
     private fun isEndTimeValid(startDateTime: String, endDateTime: String): Boolean {
-        // Code to check if the end time is valid (i.e. after the start time)
+    // Code to check if the end time is valid (i.e. after the start time)
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        val startDate = sdf.parse(startDateTime)
-        val endDate = sdf.parse(endDateTime)
-        return endDate?.after(startDate) ?: false
+        return try {
+            val startDate = sdf.parse(startDateTime)
+            val endDate = sdf.parse(endDateTime)
+            endDate.after(startDate)
+        } catch (e: ParseException) {
+            false
+        }
     }
 
     private fun showStartDateTimeDialog(){
@@ -143,68 +209,6 @@ class EditCampaignActivity : AppCompatActivity() {
     }
 
 
-
-    private fun updateCampaign() {
-        // Update the campaign's properties with the new data entered by the user
-        campaign.title = titleEditText.text.toString()
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
-        campaign.startDateTime = Timestamp(format.parse(startDateTimeTextView.text.toString())!!)
-        campaign.endDateTime = Timestamp(format.parse(endDateTimeTextView.text.toString())!!)
-        campaign.candidate1.name = candidate1Text.text.toString()
-        campaign.candidate2.name = candidate2Text.text.toString()
-        campaign.candidate3.name = candidate3Text.text.toString()
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Confirm Update")
-        builder.setMessage("Are you sure you want to update this campaign?")
-        builder.setPositiveButton("Update") { _, _ ->
-            // Update the campaign in the Firebase Firestore database
-
-            val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
-            val startTimestamp = Timestamp(format.parse(startDateTimeTextView.text.toString())!!)
-            val endTimestamp = Timestamp(format.parse(endDateTimeTextView.text.toString())!!)
-            campaign.startDateTime = startTimestamp
-            campaign.endDateTime = endTimestamp
-            db.collection("campaigns").document(campaign.id).set(campaign)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Campaign updated successfully", Toast.LENGTH_SHORT)
-                        .show()
-                    finish()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to update campaign", Toast.LENGTH_SHORT).show()
-                }
-        }
-        builder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.dismiss()
-        }
-        val dialog = builder.create()
-        dialog.show()
-    }
-    
-    private fun deleteCampaign() {
-        // Show confirmation dialog
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setMessage("Are you sure you want to delete this campaign?")
-            .setCancelable(false)
-            .setPositiveButton("Yes") { _, _ ->
-        // Delete the campaign from the Firebase Firestore database
-                db.collection("campaigns").document(campaign.id).delete()
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Campaign deleted successfully", Toast.LENGTH_SHORT).show()
-                        finish()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Failed to delete campaign", Toast.LENGTH_SHORT).show()
-                    }
-            }
-            .setNegativeButton("No") { dialog, _ ->
-                dialog.cancel()
-            }
-        val alert = dialogBuilder.create()
-        alert.setTitle("Confirm")
-        alert.show()
-    }
     
     
 
