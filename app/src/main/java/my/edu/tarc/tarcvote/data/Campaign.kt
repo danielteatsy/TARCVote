@@ -8,8 +8,8 @@ import java.util.*
 data class Campaign(
     var id: String,
     var title: String,
-    val startDateTime: Timestamp,
-    val endDateTime: Timestamp,
+    var startDateTime: Timestamp,
+    var endDateTime: Timestamp,
     val candidate1: Candidate,
     val candidate2: Candidate,
     val candidate3: Candidate

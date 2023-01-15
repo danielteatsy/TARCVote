@@ -83,7 +83,19 @@ class EditCampaignActivity : AppCompatActivity() {
 
 
         saveButton.setOnClickListener {
-            updateCampaign()
+            if (isEndTimeValid(startDateTimeTextView.text.toString(), endDateTimeTextView.text.toString())) {
+                updateCampaign()
+            } else {
+                Toast.makeText(this, "End time must be after start time", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        startDateTimeTextView.setOnClickListener {
+            showStartDateTimeDialog()
+        }
+
+        endDateTimeTextView.setOnClickListener {
+            showEndDateTimeDialog()
         }
 
         deleteButton.setOnClickListener {
@@ -92,17 +104,70 @@ class EditCampaignActivity : AppCompatActivity() {
 
 
     }
+
+    private fun isEndTimeValid(startDateTime: String, endDateTime: String): Boolean {
+        // Code to check if the end time is valid (i.e. after the start time)
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val startDate = sdf.parse(startDateTime)
+        val endDate = sdf.parse(endDateTime)
+        return endDate?.after(startDate) ?: false
+    }
+
+    private fun showStartDateTimeDialog(){
+        val calendar = Calendar.getInstance()
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                startDateTimeTextView.text = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).format(calendar.time)
+            }
+            TimePickerDialog(this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+        }
+        DatePickerDialog(this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+    }
+
+    private fun showEndDateTimeDialog(){
+        val calendar = Calendar.getInstance()
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                endDateTimeTextView.text = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(calendar.time)
+            }
+            TimePickerDialog(this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+        }
+        DatePickerDialog(this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+    }
+
+
+
     private fun updateCampaign() {
         // Update the campaign's properties with the new data entered by the user
         campaign.title = titleEditText.text.toString()
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+        campaign.startDateTime = Timestamp(format.parse(startDateTimeTextView.text.toString())!!)
+        campaign.endDateTime = Timestamp(format.parse(endDateTimeTextView.text.toString())!!)
         campaign.candidate1.name = candidate1Text.text.toString()
         campaign.candidate2.name = candidate2Text.text.toString()
         campaign.candidate3.name = candidate3Text.text.toString()
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Confirm Update")
         builder.setMessage("Are you sure you want to update this campaign?")
         builder.setPositiveButton("Update") { _, _ ->
             // Update the campaign in the Firebase Firestore database
+
+            val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+            val startTimestamp = Timestamp(format.parse(startDateTimeTextView.text.toString())!!)
+            val endTimestamp = Timestamp(format.parse(endDateTimeTextView.text.toString())!!)
+            campaign.startDateTime = startTimestamp
+            campaign.endDateTime = endTimestamp
             db.collection("campaigns").document(campaign.id).set(campaign)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Campaign updated successfully", Toast.LENGTH_SHORT)
@@ -116,11 +181,10 @@ class EditCampaignActivity : AppCompatActivity() {
         builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.dismiss()
         }
-
         val dialog = builder.create()
         dialog.show()
     }
-
+    
     private fun deleteCampaign() {
         // Show confirmation dialog
         val dialogBuilder = AlertDialog.Builder(this)
@@ -144,6 +208,8 @@ class EditCampaignActivity : AppCompatActivity() {
         alert.setTitle("Confirm")
         alert.show()
     }
+    
+    
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

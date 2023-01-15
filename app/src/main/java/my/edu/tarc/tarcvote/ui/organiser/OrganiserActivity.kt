@@ -84,7 +84,7 @@ class OrganiserActivity : AppCompatActivity() {
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.nav_poll -> intent.setClass(this@OrganiserActivity, OrganiserActivity::class.java)
-                    R.id.nav_results -> intent.setClass(this@OrganiserActivity, ResultListActivity::class.java)
+                    R.id.nav_results -> intent.setClass(this@OrganiserActivity, OrganiserResultList::class.java)
                     R.id.action_logout -> {
                         val preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
                         preferences.edit().clear().apply()
