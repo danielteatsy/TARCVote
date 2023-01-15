@@ -16,8 +16,15 @@
         android:theme="@style/Theme.TARCVote"
         tools:targetApi="31">
         <activity
+            android:name=".ui.organiser.OrganiserResult"
+            android:exported="false" />
+        <activity
+            android:name=".ui.organiser.OrganizerResultList"
+            android:exported="false" />
+        <activity
             android:name=".ui.ResultListActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".ui.UserActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -33,7 +40,7 @@
         <activity
             android:name=".ui.ResultActivity"
             android:exported="false"
-            android:parentActivityName=".ui.VoteListActivity">
+            android:parentActivityName=".ui.ResultListActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

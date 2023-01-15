@@ -21,7 +21,7 @@ class ResultListActivity : AppCompatActivity() {
     private lateinit var campaignRecyclerView: RecyclerView
     private lateinit var db: FirebaseFirestore
 
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result_list)
